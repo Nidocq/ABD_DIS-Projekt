@@ -1,0 +1,13 @@
+.titleWrapper {
+  text-align: center;
+  margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+h1, h4{
+  margin-top: 10px;
+}

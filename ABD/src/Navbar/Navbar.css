@@ -1,0 +1,24 @@
+.wrapper {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    background-color: dodgerblue;
+    border-radius: 15px;
+}
+
+div {
+    width: 100%;
+}
+
+
+.logo {
+    height: 70px;
+    width: 70px;
+}
+
+.userlogo {
+    height: 50px;
+    width: 50px;
+}
+
