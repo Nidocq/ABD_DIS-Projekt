@@ -1,21 +1,23 @@
 .wrapper {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    align-content: space-between;
+    background-color: red;
 }
 
-li {
-    display: inline;
+div {
     width: 100%;
 }
 
-.userlogo {
-    height: 100px;
-    width: 100px;
-}
 
 .logo {
-    height: 100px;
-    width: 100;
+    height: 70px;
+    width: 70px;
 }
+
+.userlogo {
+    height: 50px;
+    width: 50px;
+}
+
