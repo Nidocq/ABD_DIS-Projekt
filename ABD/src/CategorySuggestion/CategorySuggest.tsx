@@ -28,15 +28,10 @@ const getItems = () => {
     .then(data => console.log(data));
 } 
 
-const handleOnClick = () => {
-    getItems();
-}
-
-
 function createItem() {
     let name = prompt('Enter merchant name');
     let email = prompt('Enter merchant email');
-    fetch('http://localhost:3001/Items', {
+    fetch('http://localhost:3001/item', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,20 +39,30 @@ function createItem() {
       body: JSON.stringify({name, email}),
     })
       .then(response => {
+        // console.log("I am response text " + response.text());
         return response.text();
       })
       .then(data => {
         alert(data);
-        getItems();
+        // getItems();
       });
   }
 
-function CategorySuggest() {
+const handleGetOnClick = () => {
+    getItems();
+}
 
+const handlePostOnClick = () => {
+    createItem();
+}
+
+
+
+function CategorySuggest() {
     return (
         <div className="suggestWrapper">
-            <button onClick={handleOnClick}>GET</button>
-            <button onClick={() => createItem()}>CREATE</button>
+            <button onClick={handleGetOnClick}>GET</button>
+            <button onClick={handlePostOnClick}>CREATE</button>
             {SuggestionItems.map((item) => { return <Suggestion {...item} /> }) }  
         </div>
     )
