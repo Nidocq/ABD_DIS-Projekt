@@ -1,9 +1,9 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'my_user',
+  user: 'postgres',
   host: 'localhost',
   database: 'my_database',
-  password: 'root',
+  password: '',
   port: 5432,
 });
 
@@ -21,17 +21,21 @@ const getItems = () => {
   }) 
 }
 
-// const createItem = (body) => {
-//   return new Promise(function(resolve, reject) {
-//     const { name, email } = body
-//     pool.query('INSERT INTO Item (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
-//       if (error) {
-//         reject(error)
-//       }
-//       resolve(`A new Item has been added added: ${results.rows[0]}`)
-//     })
-//   })
-// }
+const createItem = (body) => {
+  return new Promise(function(resolve, reject) {
+    const { name, email } = body
+    pool.query('INSERT INTO item (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
+      console.log(name)
+      console.log(email)
+      if (error) {
+        console.log("Rejecting promise from CreateItem.");
+        reject(error)
+      }
+      console.log(results)
+      resolve(`A new Item has been added added \n name:  ${results.rows[0].name}\n email: ${results.rows[0].email}]`);
+    })
+  })
+}
 // const deleteItem = () => {
 //   return new Promise(function(resolve, reject) {
 //     const id = parseInt(request.params.id)
@@ -46,6 +50,6 @@ const getItems = () => {
 
 module.exports = {
   getItems,
-  // createItem,
+  createItem,
   // deleteItem,
 }

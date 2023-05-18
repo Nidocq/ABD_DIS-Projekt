@@ -22,17 +22,17 @@ app.get('/', (req, res) => {
   })
 })
 
-// fetch(API).then(do something with response)
-
-// app.post('/Items', (req, res) => {
-//   Item_model.createItem(req.body)
-//   .then(response => {
-//     res.status(200).send(response);
-//   })
-//   .catch(error => {
-//     res.status(500).send(error);
-//   })
-// })
+app.post('/item', (req, res) => {
+  console.log("Hello i am req.body: " + req.body.email);
+  Item_model.createItem(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    console.log("I get a server errror!!!");
+    res.status(500).send(error);
+  })
+})
 
 // app.delete('/Items/:id', (req, res) => {
 //   Item_model.deleteItem(req.params.id)
