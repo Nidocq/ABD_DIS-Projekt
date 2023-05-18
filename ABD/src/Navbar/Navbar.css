@@ -1,25 +1,32 @@
 .wrapper {
     display: inline-flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-content: space-between;
-    background-color: dodgerblue;
-    border-radius: 15px;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
+    background-color: darkslategray;
+    height: 50px;
 }
 
 div {
     width: 100%;
 }
 
-
-.logo {
-    height: 70px;
-    width: 70px;
+.nav-bar-explore-btn, .nav-bar-create-btn {
+    text-decoration: none;
+    color: moccasin;
 }
 
-.userlogo {
-    height: 50px;
-    width: 50px;
+.nav-bar-logo:hover,
+.nav-bar-user-btn:hover,
+a:hover {
+    color: dodgerblue;
+    cursor: pointer;
 }
 
+.nav-bar-logo,
+.nav-bar-user-btn {
+    width: 25px;
+    height: 25px;
+    color: moccasin;
+}

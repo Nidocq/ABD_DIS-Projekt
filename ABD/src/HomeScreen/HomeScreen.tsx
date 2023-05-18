@@ -6,8 +6,8 @@ import "./HomeScreen.css";
 
 
 function HomeScreen() {
-    return ( 
-        <>
+  return (
+    <main className="main-container">
       <Navbar />
       <div className="bodyClass">
         <div className="titleWrapper">
@@ -15,10 +15,10 @@ function HomeScreen() {
           <h4>Get everything</h4>
         </div>
         <CategorySuggest />
-        <ItemView /> 
+        <ItemView />
       </div>
-          </>
-     );
+    </main>
+  );
 }
 
 

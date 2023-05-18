@@ -4,6 +4,6 @@ export interface CategoryItem {
 
 export function Suggestion(props:CategoryItem) {
     return (
-        <p className='Suggestions'>{props.TextDisplay}</p>
+        <a className='Suggestions'>{props.TextDisplay}</a>
     )
 }

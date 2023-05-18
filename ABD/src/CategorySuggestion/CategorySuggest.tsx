@@ -61,8 +61,6 @@ const handlePostOnClick = () => {
 function CategorySuggest() {
     return (
         <div className="suggestWrapper">
-            <button onClick={handleGetOnClick}>GET</button>
-            <button onClick={handlePostOnClick}>CREATE</button>
             {SuggestionItems.map((item,index) => { return <Suggestion key={index} {...item} /> }) }  
         </div>
     )

@@ -6,6 +6,8 @@ import './ItemView.css';
 
 // TODO: This should idealy be a json file
 const itemArray:ItemProps[] = [{
+    id: 1,
+    toggleLike: (index: number) => {},
     isLiked: false,
     img:'https://www.tutorialspoint.com/assets/questions/media/426142-1668760872.png',
     title:'This is a title',
@@ -14,6 +16,8 @@ const itemArray:ItemProps[] = [{
     likes:42,
 },
 {
+    id: 1,
+    toggleLike: (index: number) => {},
     isLiked: false,
     img:'https://imgv3.fotor.com/images/blog-richtext-image/take-a-picture-with-camera.png',
     title:'This is a title',
@@ -22,6 +26,8 @@ const itemArray:ItemProps[] = [{
     likes:42,
 },
 {
+    id: 1,
+    toggleLike: (index: number) => {},
     isLiked: true,
     img:'https://d.newsweek.com/en/full/520858/supermoon-moon-smartphone-photo-picture.jpg?w=1600&h=1600&q=88&f=bb45f0cd0324ae5e04827f684a9da7e8',
     title:'This is a title',
@@ -30,6 +36,8 @@ const itemArray:ItemProps[] = [{
     likes:42,
 },
 {
+    id: 1,
+    toggleLike: (index: number) => {},
     isLiked: true,
     img:'https://sb.kaleidousercontent.com/67418/3840x2200/40b6488625/individuals-org.png',
     title:'This is a title',
