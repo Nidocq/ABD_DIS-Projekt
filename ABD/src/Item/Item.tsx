@@ -11,7 +11,7 @@ export interface ItemProps {
 }
 
 
-function Item({isLiked, img, title, owner, description, likes, toggleLike, key}: any  ) {
+function Item({isLiked, img, title, owner, description, likes, toggleLike, id}: any  ) {
     return ( 
         <div className="item-container">
             <img 
@@ -21,11 +21,13 @@ function Item({isLiked, img, title, owner, description, likes, toggleLike, key}:
             <div className="info-container">
                 <h5>{title}</h5>
                 <p>{owner}</p>
+                <p>{description}</p>
                 {
+                   
                     isLiked ?
-                    <img onClick={() => toggleLike(key)} className="heart-like" src="https://cdn-icons-png.flaticon.com/512/2077/2077502.png"/>
+                    <img onClick={() => toggleLike(id)} className="heart-like" src="https://cdn-icons-png.flaticon.com/512/2077/2077502.png"/>
                     :
-                    <img onClick={() => toggleLike(key)} className="heart-like" src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"/>
+                    <img onClick={() => toggleLike(id)} className="heart-like" src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"/>
                 }
                 <p>{likes}</p>
             </div>

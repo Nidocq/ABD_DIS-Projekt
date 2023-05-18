@@ -61,6 +61,7 @@ function ItemView() {
         {items.map((item, index) => {
             return <Item 
                         key={index}
+                        id={index}
                         toggleLike={toggleLike}
                         isLiked={item.isLiked}
                         img={item.img}
