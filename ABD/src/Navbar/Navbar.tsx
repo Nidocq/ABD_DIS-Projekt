@@ -1,6 +1,8 @@
-import { Url } from 'url';
 import './Navbar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
+icon({name: 'user'})
 export interface NavbarItems {
     displayText: string;
     // TODO: This should idealy be Url type
@@ -22,8 +24,7 @@ export interface NavbarItems {
 function Navbar() {
     return ( 
         <div className='wrapper'>
-                <img className="logo" 
-                    src="https://cdn-icons-png.flaticon.com/512/6703/6703157.png" />
+                <FontAwesomeIcon icon={icon({name: 'coffee'})} />
                 <a href="./index.html">Explore</a>
                 <a href="">Create</a>
                 <img 
