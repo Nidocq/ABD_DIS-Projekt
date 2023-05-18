@@ -2,7 +2,6 @@ import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-icon({name: 'user'})
 export interface NavbarItems {
     displayText: string;
     // TODO: This should idealy be Url type
@@ -24,12 +23,15 @@ export interface NavbarItems {
 function Navbar() {
     return ( 
         <div className='wrapper'>
-                <FontAwesomeIcon icon={icon({name: 'coffee'})} />
+                <FontAwesomeIcon 
+                    onClick={() => alert("hello world")}
+                    icon={icon({name: 'user'})} 
+                 />
                 <a href="./index.html">Explore</a>
                 <a href="">Create</a>
-                <img 
-                    className="userlogo" 
-                    src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" />
+                <FontAwesomeIcon 
+                    icon={icon({name: 'user'})}
+                />
         </div> );
 }
 
