@@ -44,15 +44,30 @@ function ItemView() {
     // TODO: This should be fetched from database
     const [items, setItems] = React.useState(itemArray);
 
-    const setIsLiked = () => {
-        setItems(items.map((item) => {  
-            return {...item, isLiked: !item.isLiked}
-        }));
+    const toggleLike = (index: number) => {
+        setItems((prevItems) => {
+            // Create a copy of the array
+            let updatedItems = [...prevItems]; 
+
+            // Update the specific item
+            // Assuming the item has an 'isLiked' property
+            updatedItems[index] = { ...updatedItems[index], 
+                                    isLiked: !updatedItems[index].isLiked };
+            return updatedItems; // Set the updated array as the new state
+          });
     }
+
     return ( <div className="item-view-container">
-        {items.map((item) => {
+        {items.map((item, index) => {
             return <Item 
-                        {...item}
+                        key={index}
+                        toggleLike={toggleLike}
+                        isLiked={item.isLiked}
+                        img={item.img}
+                        title={item.title}
+                        owner={item.owner}
+                        description={item.description}
+                        likes={item.likes}
                     />
         })}
     </div> );

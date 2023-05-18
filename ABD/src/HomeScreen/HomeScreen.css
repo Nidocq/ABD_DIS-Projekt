@@ -6,8 +6,16 @@
     justify-content: center;
     align-content: center;
     align-items: center;
+    overflow: hidden;
 }
+
 
 h1, h4{
   margin-top: 10px;
+}
+
+.bodyClass {
+  margin: 0 50px;
+  display: flex; /*added*/
+  flex-direction: column; /*added*/
 }

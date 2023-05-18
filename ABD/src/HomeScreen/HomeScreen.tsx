@@ -9,12 +9,14 @@ function HomeScreen() {
     return ( 
         <>
       <Navbar />
-      <div className="titleWrapper">
-        <h1>ABD</h1>
-        <h4>Get everything</h4>
+      <div className="bodyClass">
+        <div className="titleWrapper">
+          <h1>ABD</h1>
+          <h4>Get everything</h4>
+        </div>
+        <CategorySuggest />
+        <ItemView /> 
       </div>
-      <CategorySuggest />
-      <ItemView /> 
           </>
      );
 }
