@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import ItemView from "../ItemView/ItemView";
-import CategorySuggest from "../CategorySuggestion/CategorySuggest";
 import "./HomeScreen.css";
+import Category from "../Categories/Category";
 
 
 function HomeScreen() {
@@ -14,7 +14,7 @@ function HomeScreen() {
           <h1>ABD</h1>
           <h4>Get everything</h4>
         </div>
-        <CategorySuggest />
+        <Category />
         <ItemView />
       </div>
     </main>

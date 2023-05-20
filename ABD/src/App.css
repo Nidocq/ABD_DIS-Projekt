@@ -1,12 +1,24 @@
 * {
   margin: 0;
   padding: 0;
+
+}
+
+:root {
+  --primColor: moccasin;
+  --secColor: darkslategray;
+  --thrColor: red; 
+  --primColorHSL: hsl(38, 100%, 85%, 0.5);
 }
 
 html {
   height: 100%;
+
 }
 
 body {
   height: 100%;
+
+  background-color: linen;
+      font-family: 'Courier New', Courier, monospace;
 }

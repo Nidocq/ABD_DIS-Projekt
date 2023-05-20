@@ -2,7 +2,6 @@ import React from "react";
 import './Item.css';
 
 export interface ItemProps {
-    toggleLike: (index: number) => void;
     id: number;
     isLiked: boolean;
     img: string;
@@ -14,6 +13,12 @@ export interface ItemProps {
 
 
 function Item(props: ItemProps) {
+
+    const [isLiked, setIsLiked] = React.useState(props.isLiked);
+
+    const toggleLike = () => {
+        setIsLiked(!isLiked);
+    }
     return (
         <div className="item-container">
             <img
@@ -33,15 +38,15 @@ function Item(props: ItemProps) {
                         <div className="heart-container">
                             {
 
-                                props.isLiked ?
+                                isLiked ?
                                     <img
-                                        onClick={() => props.toggleLike(props.id)}
+                                        onClick={() => toggleLike()}
                                         className="heart-like"
                                         src="https://cdn-icons-png.flaticon.com/512/2077/2077502.png"
                                     />
                                     :
                                     <img
-                                        onClick={() => props.toggleLike(props.id)}
+                                        onClick={() => toggleLike()}
                                         className="heart-like"
                                         src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
                                     />

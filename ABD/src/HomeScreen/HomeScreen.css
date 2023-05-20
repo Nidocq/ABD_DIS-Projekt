@@ -1,12 +1,13 @@
 .titleWrapper {
   text-align: center;
-  margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    overflow: hidden;
+  margin: 90px 0 30px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: -1;
 }
 
 

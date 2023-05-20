@@ -1,0 +1,15 @@
+.category-link {
+    color: black;
+}
+.category-link:hover {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.selected {
+    color: var(--secColor);
+    text-decoration: underline;
+    cursor: pointer;
+}
+

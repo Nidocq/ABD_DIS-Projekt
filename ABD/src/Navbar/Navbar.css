@@ -1,29 +1,35 @@
 .wrapper {
+    position: fixed;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    background-color: darkslategray;
+    background-color: var(--secColor);
     height: 50px;
+    border-bottom: solid linen 1px;
+    z-index: 99;
+    font-weight: bold;
 }
 
 
 .nav-bar-explore-btn, .nav-bar-create-btn {
     text-decoration: none;
-    color: moccasin;
+    color: var(--primColor);
 }
 
 .nav-bar-logo:hover,
 .nav-bar-user-btn:hover,
 a:hover {
-    color: dodgerblue;
+    color: black;
+    text-decoration: underline;
     cursor: pointer;
 }
+
 
 .nav-bar-logo,
 .nav-bar-user-btn {
     width: 25px;
     height: 25px;
-    color: moccasin;
+    color: var(--primColor);
 }
