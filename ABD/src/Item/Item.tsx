@@ -22,7 +22,6 @@ function Item(props: ItemProps) {
             />
             <div className="info-container">
                 <div>
-
                     <div>
 
                         {/* TODO: this img gotta be the profile of the owner */}
@@ -39,7 +38,8 @@ function Item(props: ItemProps) {
                     </div>
                     <p className="item-description">{props.description}</p>
                 </div>
-                {
+                <div>
+           { 
                     props.isLiked ?
                         <img
                             onClick={() => props.toggleLike(props.id)}
@@ -55,6 +55,7 @@ function Item(props: ItemProps) {
 
                 }
                 <p className="item-num-likes">{props.likes}</p>
+                </div>
             </div>
         </div>
     );
