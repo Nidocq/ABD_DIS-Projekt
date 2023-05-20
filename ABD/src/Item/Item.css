@@ -1,11 +1,10 @@
 
 .item-container {
     border: solid gray 1px;
-    max-width: 300px;
+    min-width: 300px;
     height: fit-content;
     margin: 5px;
     display: flex;
-    width: 100%;
     flex-direction: column;
 }
 
@@ -30,6 +29,13 @@
     width: 100%;
     align-self: center;
     padding: 3px;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.prem-container {
+    display: flex;
+    justify-content: space-around;
 }
 
 .heart-like {
@@ -45,7 +51,7 @@
 
 .item-title {
     font-size: 20px;
-    margin: 0;
+    margin: 8px 0 0 0;
     padding: 0;
 }
 
@@ -57,15 +63,34 @@
 
 .item-description {
     font-size: 15px;
-    margin: 0;
-    padding: 0;
+    margin: 0 0 0 10px;
+    padding: 0 0 7px 0;
+    word-wrap:break-word;
 }
 
 .item-num-likes {
     font-size: 15px;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin: 7px;
     padding: 0;
 }
 
+.image-title-container {
+    width: 100%;
+}
+
+.heart-container {
+    padding: 5px;
+    display: flex;
+
+}
+
+.item-description-container {
+    min-width: 100px;
+    min-height: 120px;
+    max-width: 290px;
+    max-height: 100px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
 

@@ -102,7 +102,7 @@ const itemArray:ItemProps[] = [{
     img:'https://d.newsweek.com/en/full/520858/supermoon-moon-smartphone-photo-picture.jpg?w=1600&h=1600&q=88&f=bb45f0cd0324ae5e04827f684a9da7e8',
     title:'This is a title',
     owner:'Hanzomain',
-    description:'never gonna give you up',
+    description:'never gonna give you up \lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl sed ultricies ultrices, nunc nisl ultricies nunc, nec ultricies ninever gonna give you up \lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl sed ultricies ultrices, nunc nisl ultricies nunc, nec ultricies ninever gonna give you up \lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl sed ultricies ultrices, nunc nisl ultricies nunc, nec ultricies ni',
     likes:42,
 },
 {

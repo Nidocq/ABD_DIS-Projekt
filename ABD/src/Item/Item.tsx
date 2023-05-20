@@ -21,40 +21,37 @@ function Item(props: ItemProps) {
                 className="item-image-big"
             />
             <div className="info-container">
-                <div>
-                    <div>
-
-                        {/* TODO: this img gotta be the profile of the owner */}
+                <div className="prem-container">
+                    <div className="image-title-container">
                         <img
                             src={props.img}
                             className="item-image-small"
                         />
-                    </div>
-                    <div>
                         <h5 className="item-title">{props.title}</h5>
                         <p className="item-owner">by {props.owner}</p>
-                        {/* Check for liked on btn */}
-                        <p className="item-num-likes"></p>
                     </div>
-                    <p className="item-description">{props.description}</p>
-                </div>
-                <div>
-           { 
-                    props.isLiked ?
-                        <img
-                            onClick={() => props.toggleLike(props.id)}
-                            className="heart-like"
-                            src="https://cdn-icons-png.flaticon.com/512/2077/2077502.png"
-                        />
-                        :
-                        <img
-                            onClick={() => props.toggleLike(props.id)}
-                            className="heart-like"
-                            src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
-                        />
+                        <div className="heart-container">
+                            {
 
-                }
-                <p className="item-num-likes">{props.likes}</p>
+                                props.isLiked ?
+                                    <img
+                                        onClick={() => props.toggleLike(props.id)}
+                                        className="heart-like"
+                                        src="https://cdn-icons-png.flaticon.com/512/2077/2077502.png"
+                                    />
+                                    :
+                                    <img
+                                        onClick={() => props.toggleLike(props.id)}
+                                        className="heart-like"
+                                        src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
+                                    />
+
+                            }
+                            <p className="item-num-likes">{props.likes}</p>
+                        </div>
+                </div>
+                <div className="item-description-container">
+                    <p className="item-description">{props.description}</p>
                 </div>
             </div>
         </div>
