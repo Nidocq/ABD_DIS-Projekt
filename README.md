@@ -15,33 +15,38 @@ title: ABD ER Diagram
 erDiagram
 	Listings {
 		int listing_id PK
-		string name
+		string title
 		string description
-		string category
+		string[] category
 		string material
-		string pictures
+		string[] pictures
 		int price
-		int user_id FK
+		bool sold
+		string username FK
+		string_REF_user location 
 	}
 	User {
-		int user_id PK
 		string first_name
 		string last_name
+		string username PK
+		string password 
 		date user_since
 		string location
+		string picture
+
 	}
 
 	RELATION_Following_User_User {
-		int first_user_id UK
-		int second_user_id UK
+		int follower_username FK
+		int followed_username FK
 	}
 
 	RELATION_Favorized_User_Listings {
-		int user_id FK
+		int username FK
 		int listing_id FK
 	}
 
 	Listings }|--|| User : Own
 	User }|--|{ User : Follows
-	User |o--|{ Listings : Favorites 
+	User |o--|{ Listings : Favorites
 ```
