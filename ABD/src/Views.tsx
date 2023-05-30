@@ -1,14 +1,13 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import SignUp from './Login/SignUp';
 function Views(props: any) {
     return (
-        <Routes>
+         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<SignUp />}/>
             <Route path="*" element={<Login />} /> 
-        </Routes>
+        </Routes> 
     );
 }
 
