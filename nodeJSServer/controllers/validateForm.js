@@ -18,10 +18,12 @@ const validateForm = (req, res) => {
     .catch(err => {
       res.status(422).send();
       console.log(err.errors);
+      return false;
     })
     .then(valid => {
       if (valid) {
       console.log("Input is valid");
+      return true;
       }
     });
 };

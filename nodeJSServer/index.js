@@ -33,10 +33,10 @@ app.post('/item', (req, res) => {
 })
 
 app.post("/auth/login", async (req, res) => {
-  validateForm(req, res);
+  validateForm(req, res)
 
   const potentialLogin = await abd_model.getUser(req.body.username);
-  if (potentialLogin.rowCount > 0) {
+  if (potentialLogin && potentialLogin.rowCount > 0) {
     const isSamePass = req.body.password === potentialLogin.rows[0].password
 
     if (isSamePass) {
