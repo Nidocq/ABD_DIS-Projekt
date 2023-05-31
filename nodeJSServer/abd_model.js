@@ -1,10 +1,10 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'postgres',
+  user: 'mahmood', // Remember to change to your username
   host: 'localhost',
-  database: 'my_database',
-  password: '',
-  port: 5432,
+  database: 'my_database', // Remember to change to your database name
+  password: '', // Remember to change to your password
+  port: 5432, // This is the default port for postgresql
 });
 
 
@@ -45,17 +45,17 @@ const registerUser = (body) => {
     console.log(body)
     console.log(username)
     console.log(password)
-    pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, password], (error, results) => {
+    pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password], (error, results) => {
       console.log(username)
       console.log(password)
       if (error) {
         console.log("Rejecting promise from registerUser.");
         reject(error)
-      } else {
+      } 
 
         console.log(results)
         resolve(`A new user has been added added \n username:  ${results.rows[0].username}\n password: ${results.rows[0].password}]`);
-      }
+      
     })
   })
 }
