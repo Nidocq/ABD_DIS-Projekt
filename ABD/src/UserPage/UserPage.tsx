@@ -8,7 +8,7 @@ const UserPage = () => {
   return (
     <>
       <Navbar />
-      <div className="bodyWrapper">
+      <div className="ListingWrapper">
         <div className="ProfilePreview">
           <img src="https://cdn-icons-png.flaticon.com/512/848/848043.png"/>
           <h2>Name Hanzomain</h2>
