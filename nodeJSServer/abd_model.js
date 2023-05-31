@@ -52,7 +52,7 @@ const getUser = (username) => {
       if (error) {
         reject(error)
       }
-      resolve(results.rows[0]);
+      resolve(results);
     })
   })
 }

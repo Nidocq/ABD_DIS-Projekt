@@ -37,13 +37,19 @@ app.post("/auth/login", (req, res) => {
 });
 
 app.post('/auth/register', async (req, res) => {
-  validateForm(req, res) 
-  const existingUser = await abd_model.getUser(req.body.username)
-  if(existingUser.rowCount === 0) {
-    abd_model.registerUser(req.body)
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+  validateForm(req, res);
+
+  console.log(req.body.username)
+  const existingUser = await abd_model.getUser(req.body.username);
+  console.log(existingUser)
+
+  if (existingUser.rowCount === 0) {
+    // register
+    abd_model.registerUser(req.body);
+
+    res.json({ loggedIn: true, username: req.body.username });
   } else {
-    res.json({loggedIn: false, message: "User already exists"})
+    res.json({ loggedIn: false, status: "Username taken" });
   }
 })    
 
