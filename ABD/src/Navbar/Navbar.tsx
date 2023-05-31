@@ -19,11 +19,13 @@ function Navbar() {
                     className='nav-bar-logo'
                  />
                 <a href="./index.html" className='nav-bar-explore-btn'>Explore</a>
-                <a href="./index.html" className='nav-bar-create-btn'>Create</a>
-                <FontAwesomeIcon 
-                    icon={icon({name: 'user'})}
-                    className='nav-bar-user-btn'
-                />
+                <a href="./CreateListing.html" className='nav-bar-create-btn'>Create</a>
+                <a href="./UserPage.html">
+                    <FontAwesomeIcon 
+                        icon={icon({name: 'user'})}
+                        className='nav-bar-user-btn'
+                    />
+                </a>
         </div> );
 }
 

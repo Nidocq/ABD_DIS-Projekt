@@ -1,9 +1,6 @@
 ## ABD
 ### Get everything
 
-[[_TOC_]]
-
-
 # Getting started
 Install the necessary libraries in order to launch the server.
 Starting the website \
