@@ -1,0 +1,32 @@
+.bodyWrapper {
+    display: inline-flex;
+    padding-top: 50px;
+    transform: translate(0%,50%);
+
+    /* debugging-> */
+    /* border:solid 1px indigo; */
+}
+
+.ProfileEditor, .ProfilePreview {
+    height: 30em;
+    width: 30em;
+    border:solid 1px black;
+    /* debugging-> */
+    /* border:solid 1px red; */
+}
+
+.ProfilePreview {
+}
+
+.ProfileEditor {
+    width: 60em;
+}
+
+.ProfilePreview img {
+    width: 100px;
+    height: 100px;
+}
+
+.btnSaveListing {
+    padding: 1em;
+}
