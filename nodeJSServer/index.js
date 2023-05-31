@@ -1,8 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3001
-const authRouter = require('./routers/authrouters')
-
+const validateForm = require('./controllers/validateForm')
 const abd_model = require('./abd_model')
 app.use(express.json())
 app.use(function (req, res, next) {
@@ -12,53 +11,62 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', "true");
   next();
 });
-app.use('/auth', authRouter)
 
 app.get('/', (req, res) => {
   abd_model.getItems()
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  })
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    })
 })
 
 app.post('/item', (req, res) => {
-  console.log("Hello i am req.body: " + req.body.email);
   abd_model.createItem(req.body)
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    console.log("I get a server errror!!!");
-    res.status(500).send(error);
-  })
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    })
 })
 
+app.post("/auth/login", async (req, res) => {
+  validateForm(req, res)
 
-app.post('/auth/register', (req, res) => {
-  //console.log("Hello i am req.body: " + req.body.email);
-  console.log("Name of user: " + req.body.name)
-  abd_model.registerUser(req.body)
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    console.log("I get a server errror!!!", error);
-  })
-})    
+  const potentialLogin = await abd_model.getUser(req.body.username);
+  if (potentialLogin && potentialLogin.rowCount > 0) {
+    const isSamePass = req.body.password === potentialLogin.rows[0].password
 
+    if (isSamePass) {
+      req.user = {
+        username: req.body.username,
+        //id: potentialLogin.rows[0].id,
+      };
+      res.json({ loggedIn: true, username: req.body.username });
+    } else {
+      res.json({ loggedIn: false, status: "Wrong username or password!" });
+      console.log("Not good");
+    }
+  } else {
+    console.log("Not good");
+    res.json({ loggedIn: false, status: "Wrong username or password!" });
+  }
+});
 
-// app.delete('/Items/:id', (req, res) => {
-//   abd_model.deleteItem(req.params.id)
-//   .then(response => {
-//     res.status(200).send(response);
-//   })
-//   .catch(error => {
-//     res.status(500).send(error);
-//   })
-// })
+app.post('/auth/register', async (req, res) => {
+  validateForm(req, res);
+  const existingUser = await abd_model.getUser(req.body.username);
+  if (existingUser.rowCount === 0) {
+    // register
+    abd_model.registerUser(req.body);
+    res.json({ loggedIn: true, username: req.body.username });
+  } else {
+    res.json({ loggedIn: false, status: "Username taken" });
+  }
+})
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
