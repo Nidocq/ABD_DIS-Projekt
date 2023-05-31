@@ -1,8 +1,21 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
+import Navbar from '../Navbar/Navbar';
 
 const UserPage = () => {
   return (
-    <div>UserPage</div>
+    <>
+      <Navbar />
+      <div className="bodyWrapper">
+        <div className="ProfilePreview">
+          
+        </div>
+        <div className='ProfileEditor'>
+
+        </div>
+      </div>
+      <p>UserPage</p>
+    </>
   )
 }
 
