@@ -41,17 +41,18 @@ const createItem = (body) => {
 
 const registerUser = (body) => {
   return new Promise(function (resolve, reject) {
-    const { name, password } = body
-    pool.query('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *', [name, password], (error, results) => {
-      console.log(name)
+    const { username, password } = body
+    pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password], (error, results) => {
+      console.log(username)
+      console.log(password)
       if (error) {
         console.log("Rejecting promise from registerUser.");
         reject(error)
       }
+      console.log(results)
+      resolve(`A new user has been added added \n username:  ${results.rows[0].username}\n password: ${results.rows[0].password}]`);
     })
-    resolve(`A new user has been added added \n name:  ${results.rows[0].name}\n password: ${results.rows[0].password}]`);
   })
-
 }
 
 // const deleteItem = () => {
@@ -69,5 +70,6 @@ const registerUser = (body) => {
 module.exports = {
   getItems,
   createItem,
+  registerUser,
   // deleteItem,
 }

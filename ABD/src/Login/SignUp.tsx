@@ -30,7 +30,7 @@ const SignUp = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(vals),
-        }).catch((err) => {
+        }).catch(e => {
           return;
         }).then((res: any) => {
           if (!res || !res.ok || res.status !== 200) {
