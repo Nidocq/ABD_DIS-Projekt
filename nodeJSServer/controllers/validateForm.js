@@ -21,7 +21,7 @@ const validateForm = (req, res) => {
     })
     .then(valid => {
       if (valid) {
-      console.log("form is good");
+      console.log("Input is valid");
       }
     });
 };
