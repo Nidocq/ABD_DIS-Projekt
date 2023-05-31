@@ -21,8 +21,25 @@ const Login = () => {
           .max(28, "Password too long!"),
       })}
       onSubmit={(values, actions) => {
-        alert(JSON.stringify(values, null, 2));
+        const vals = { ...values };
         actions.resetForm();
+        fetch("http://localhost:3001/auth/login", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(vals),
+        }).catch((err) => {
+          return;
+        }).then((res: any) => {
+          if (!res || !res.ok || res.status !== 200) {
+            return
+          }
+        }).then((data: any) => {
+          if (!data) return;
+          console.log(data);
+        });
       }}
     >
       <VStack
@@ -39,6 +56,7 @@ const Login = () => {
           placeholder="Enter username"
           autoComplete="off"
           label="Username"
+          type="text"
         />
 
         <TextField
@@ -46,6 +64,7 @@ const Login = () => {
           placeholder="Enter password"
           autoComplete="off"
           label="Password"
+          type="password"
         />
 
         <ButtonGroup pt="1rem">
