@@ -42,15 +42,20 @@ const createItem = (body) => {
 const registerUser = (body) => {
   return new Promise(function (resolve, reject) {
     const { username, password } = body
-    pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password], (error, results) => {
+    console.log(body)
+    console.log(username)
+    console.log(password)
+    pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, password], (error, results) => {
       console.log(username)
       console.log(password)
       if (error) {
         console.log("Rejecting promise from registerUser.");
         reject(error)
+      } else {
+
+        console.log(results)
+        resolve(`A new user has been added added \n username:  ${results.rows[0].username}\n password: ${results.rows[0].password}]`);
       }
-      console.log(results)
-      resolve(`A new user has been added added \n username:  ${results.rows[0].username}\n password: ${results.rows[0].password}]`);
     })
   })
 }
