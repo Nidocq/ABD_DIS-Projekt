@@ -1,6 +1,24 @@
 ## ABD
 ### Get everything
-___
+
+[[_TOC_]]
+
+
+# Getting started
+Install the necessary libraries in order to launch the server.
+Starting the website \
+```bash
+cd ABD
+npm i && node start
+```
+
+Starting the server \
+Start a new terminal
+```bash
+cd ../nodeJSServer 
+npm i && node start index.js
+```
+Then you can start the server and
 
 #### Software used
 :page_facing_up: [Standalone PostgreSQL (Database)](https://www.postgresql.org/download/) \
