@@ -25,6 +25,7 @@ const SignUp = () => {
         actions.resetForm();
         fetch("http://localhost:3001/auth/register", {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
