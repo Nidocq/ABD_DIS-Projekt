@@ -23,7 +23,7 @@ const SignUp = () => {
       onSubmit={(values, actions) => {
         const vals = { ...values };
         actions.resetForm();
-        fetch("http://localhost:3001/auth/register", {
+        fetch("http://localhost:3001/auth/signup", {
           method: "POST",
           credentials: "include",
           headers: {
@@ -31,14 +31,17 @@ const SignUp = () => {
           },
           body: JSON.stringify(vals),
         }).catch(e => {
+          console.error(e)
           return;
         }).then((res: any) => {
           if (!res || !res.ok || res.status !== 200) {
+            console.log(res)
             return;
           }
         }).then((data: any) => {
-          console.log(data)
           if (!data) return;
+          console.log("hello worod")
+          navigate("/home");
         });
       }}
     >

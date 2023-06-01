@@ -31,14 +31,17 @@ const Login = () => {
           },
           body: JSON.stringify(vals),
         }).catch((err) => {
+          console.error(err);
           return;
         }).then((res: any) => {
           if (!res || !res.ok || res.status !== 200) {
+            console.log(res)
             return
           }
         }).then((data: any) => {
           if (!data) return;
           console.log(data);
+          navigate("/home");
         });
       }}
     >
