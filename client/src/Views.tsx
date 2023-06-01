@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import Login from './Login/Login';
-import SignUp from './Login/SignUp';
-import CreateListing from './CreateListing/CreateListing';
-import UserPage from './UserPage/UserPage';
-import Listing from './Listing/Listing';
-import ItemView from './ItemView/ItemView';
-import HomeScreen from './HomeScreen/HomeScreen';
+import Login from './components/Login/Login';
+import SignUp from './components/Login/SignUp';
+import CreateListing from './components/CreateListing/CreateListing';
+import UserPage from './components/UserPage/UserPage';
+import Listing from './components/Listing/Listing';
+import ItemView from './components/ItemView/ItemView';
+import HomeScreen from './components/HomeScreen/HomeScreen';
 function Views(props: any) {
     return (
          <Routes>
