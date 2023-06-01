@@ -14,11 +14,11 @@ function Views(props: any) {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/CreateListing" element={<CreateListing />}></Route>
-            <Route path="/Listing" element={<Listing />}></Route>
-            <Route path="/UserPage" element={<UserPage />}></Route>
-
-            <Route element={<PrivateRoutes/>}>
+            <Route element={<PrivateRoutes />}>
+                <Route path="/CreateListing" element={<CreateListing />} />
+                <Route path="/Listing" element={<Listing />} />
+                <Route path="/UserPage" element={<UserPage />} />
+                <Route path="/ItemView" element={<ItemView />} />
                 <Route path="/home" element={<HomeScreen />} />
             </Route>
 
