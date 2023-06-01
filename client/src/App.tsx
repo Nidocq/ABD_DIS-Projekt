@@ -2,13 +2,17 @@ import React from 'react';
 import './App.css';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import Views from './Views';
+import UserContext from "./components/AccountContext";
+
 
 function App() {
   return (
-    <div className="App">
-      <Views/>
-      <HomeScreen />
-    </div>
+    <UserContext>
+      <div className="App">
+        <Views />
+        <HomeScreen />
+      </div>
+    </UserContext>
   );
 }
 

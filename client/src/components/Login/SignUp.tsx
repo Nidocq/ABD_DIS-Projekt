@@ -1,11 +1,15 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import * as Yup from "yup";
+import { AccountContext } from "../AccountContext";
 import TextField from "./TextField";
+import * as Yup from "yup";
 
 const SignUp = () => {
+  const { setUser } = useContext<any>(AccountContext);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   return (
     <Formik
@@ -42,8 +46,12 @@ const SignUp = () => {
           })
           .then(data => {
             if (!data) return;
-            console.log(data)
-            navigate("/home");
+            setUser({ ...data });
+            if (data.status) {
+              setError(data.status);
+            } else if (data.loggedIn) {
+              navigate("/home");
+            }
           });
       }}
     >
@@ -56,6 +64,9 @@ const SignUp = () => {
         spacing="1rem"
       >
         <Heading>Sign Up</Heading>
+        <Text as="p" color="red.500">
+          {error}
+        </Text>
         <TextField
           name="username"
           placeholder="Enter username"
@@ -68,6 +79,7 @@ const SignUp = () => {
           placeholder="Enter password"
           autoComplete="off"
           label="Password"
+          type="password"
         />
 
         <ButtonGroup pt="1rem">
@@ -79,7 +91,7 @@ const SignUp = () => {
           </Button>
         </ButtonGroup>
       </VStack>
-    </Formik >
+    </Formik>
   );
 };
 
