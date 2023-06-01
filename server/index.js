@@ -1,72 +1,46 @@
-const express = require('express')
-const app = express()
-const port = 3001
-const validateForm = require('./controllers/validateForm')
-const abd_model = require('./abd_model')
-app.use(express.json())
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
-  res.setHeader('Access-Control-Allow-Credentials', "true");
-  next();
+const express = require("express");
+const { Server } = require("socket.io");
+const app = express();
+const helmet = require("helmet");
+const cors = require("cors");
+const authRouter = require("./routers/authRouter");
+const session = require("express-session");
+const server = require("http").createServer(app);
+require("dotenv").config();
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: "true",
+  },
 });
 
-app.get('/', (req, res) => {
-  abd_model.getItems()
-    .then(response => {
-      res.status(200).send(response);
-    })
-    .catch(error => {
-      res.status(500).send(error);
-    })
-})
+app.use(helmet());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    credentials: true,
+    name: "sid",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.ENVIRONMENT === "production" ? "true" : "auto",
+      httpOnly: true,
+      expires: 1000 * 60 * 60 * 24 * 7,
+      sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax",
+    },
+  })
+);
+app.use("/auth", authRouter);
 
-app.post('/item', (req, res) => {
-  abd_model.createItem(req.body)
-    .then(response => {
-      res.status(200).send(response);
-    })
-    .catch(error => {
-      res.status(500).send(error);
-    })
-})
+io.on("connect", socket => {});
 
-app.post("/auth/login", async (req, res) => {
-  validateForm(req, res)
-
-  const potentialLogin = await abd_model.getUser(req.body.username);
-  if (potentialLogin && potentialLogin.rowCount > 0) {
-    const isSamePass = req.body.password === potentialLogin.rows[0].password
-
-    if (isSamePass) {
-      req.user = {
-        username: req.body.username,
-        //id: potentialLogin.rows[0].id,
-      };
-      res.json({ loggedIn: true, username: req.body.username });
-    } else {
-      res.json({ loggedIn: false, status: "Wrong username or password!" });
-      console.log("Not good");
-    }
-  } else {
-    console.log("Not good");
-    res.json({ loggedIn: false, status: "Wrong username or password!" });
-  }
+server.listen(3001, () => {
+  console.log("Server listening on port 3001");
 });
-
-app.post('/auth/register', async (req, res) => {
-  validateForm(req, res);
-  const existingUser = await abd_model.getUser(req.body.username);
-  if (existingUser.rowCount === 0) {
-    // register
-    abd_model.registerUser(req.body);
-    res.json({ loggedIn: true, username: req.body.username });
-  } else {
-    res.json({ loggedIn: false, status: "Username taken" });
-  }
-})
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
-})
