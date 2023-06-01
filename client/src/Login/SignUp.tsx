@@ -30,19 +30,21 @@ const SignUp = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(vals),
-        }).catch(e => {
-          console.error(e)
-          return;
-        }).then((res: any) => {
-          if (!res || !res.ok || res.status !== 200) {
-            console.log(res)
+        })
+          .catch(err => {
             return;
-          }
-        }).then((data: any) => {
-          if (!data) return;
-          console.log("hello worod")
-          navigate("/home");
-        });
+          })
+          .then(res => {
+            if (!res || !res.ok || res.status >= 400) {
+              return;
+            }
+            return res.json();
+          })
+          .then(data => {
+            if (!data) return;
+            console.log(data)
+            navigate("/home");
+          });
       }}
     >
       <VStack

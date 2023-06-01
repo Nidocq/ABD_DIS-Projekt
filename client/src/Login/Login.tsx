@@ -1,11 +1,12 @@
-import React from "react";
-import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import { useNavigate } from "react-router";
+import { useContext, useState } from "react";
 import * as Yup from "yup";
+import { useNavigate } from "react-router";
 import TextField from "./TextField";
 
 const Login = () => {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   return (
     <Formik
@@ -30,19 +31,21 @@ const Login = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(vals),
-        }).catch((err) => {
-          console.error(err);
-          return;
-        }).then((res: any) => {
-          if (!res || !res.ok || res.status !== 200) {
-            console.log(res)
-            return
-          }
-        }).then((data: any) => {
-          if (!data) return;
-          console.log(data);
-          navigate("/home");
-        });
+        })
+          .catch(err => {
+            return;
+          })
+          .then(res => {
+            if (!res || !res.ok || res.status >= 400) {
+              return;
+            }
+            return res.json();
+          })
+          .then(data => {
+            if (!data) return;
+            console.log(data)
+            navigate("/home");
+          });
       }}
     >
       <VStack
@@ -54,12 +57,14 @@ const Login = () => {
         spacing="1rem"
       >
         <Heading>Log In</Heading>
+        <Text as="p" color="red.500">
+          {error}
+        </Text>
         <TextField
           name="username"
           placeholder="Enter username"
           autoComplete="off"
           label="Username"
-          type="text"
         />
 
         <TextField
@@ -74,7 +79,7 @@ const Login = () => {
           <Button colorScheme="teal" type="submit">
             Log In
           </Button>
-          <Button onClick={() => navigate("/register")}>Create Account</Button>
+          <Button onClick={() => navigate("/signup")}>Create Account</Button>
         </ButtonGroup>
       </VStack>
     </Formik>
