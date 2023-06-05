@@ -1,12 +1,9 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar'
 import { Button } from '@chakra-ui/react'
 import './CreateListing.css'
 
 const CreateListing = () => {
   return (
     <>
-      <Navbar />
       <div className="ListingWrapper">
         <h1>Create Listing</h1>
         <img className="listingImg" src="."/>

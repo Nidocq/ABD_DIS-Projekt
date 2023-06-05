@@ -1,14 +1,11 @@
-import React from 'react'
 import { useNavigate } from 'react-router';
-import Navbar from '../Navbar/Navbar';
 import './UserPage.css'
 import { Button } from '@chakra-ui/react';
 
 const UserPage = () => {
   return (
     <>
-      <Navbar />
-      <div className="ListingWrapper">
+      <div className="bodyWrapper">
         <div className="ProfilePreview">
           <img src="https://cdn-icons-png.flaticon.com/512/848/848043.png"/>
           <h2>Name Hanzomain</h2>

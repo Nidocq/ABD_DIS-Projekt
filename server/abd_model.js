@@ -13,9 +13,9 @@ const getUser = (username) => {
 
 const registerUser = (body, passhash) => {
   return new Promise(function (resolve, reject) {
-    const { username  } = body
-    pool.query("INSERT INTO users(username, passhash) values($1,$2) RETURNING id, username",
-      [username, passhash], (error, results) => {
+    const { username, fullname, location, bio  } = body
+    pool.query("INSERT INTO users(username, passhash, fullname, location, bio) values($1,$2,$3,$4,$5) RETURNING id, username",
+      [username, passhash, fullname, location, bio], (error, results) => {
         if (error) {
           reject(error)
         } else {
