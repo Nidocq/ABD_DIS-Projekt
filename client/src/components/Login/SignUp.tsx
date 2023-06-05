@@ -13,7 +13,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ username: "", password: "", fullname: "", location: "", bio: "" }}
       validationSchema={Yup.object({
         username: Yup.string()
           .required("Username required!")
@@ -23,6 +23,18 @@ const SignUp = () => {
           .required("Password required!")
           .min(6, "Password too short!")
           .max(28, "Password too long!"),
+        fullname: Yup.string()
+          .required("fullname required!")
+          .min(6, "fullname too short!")
+          .max(50, "fullname too long!"),
+        location: Yup.string()
+          .required("location required!")
+          .min(6, "location too short!")
+          .max(200, "location too long!"),
+        bio: Yup.string()
+          .required("bio required!")
+          .min(0, "bio too short!")
+          .max(200, "bio too long!"),
       })}
       onSubmit={(values, actions) => {
         const vals = { ...values };
@@ -47,6 +59,7 @@ const SignUp = () => {
           .then(data => {
             if (!data) return;
             setUser({ ...data });
+            
             if (data.status) {
               setError(data.status);
             } else if (data.loggedIn) {
@@ -80,6 +93,27 @@ const SignUp = () => {
           autoComplete="off"
           label="Password"
           type="password"
+        />
+
+        <TextField
+          name="fullname"
+          placeholder="Change name"
+          label="Full name"
+          autoComplete="off"
+        />
+
+        <TextField
+          name="location"
+          label="Location"
+          placeholder="Change Location"
+          autoComplete="off"
+        />
+
+        <TextField
+          name="bio"
+          placeholder="Change Bio"
+          autoComplete="off"
+          label="Bio"
         />
 
         <ButtonGroup pt="1rem">

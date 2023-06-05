@@ -1,43 +1,104 @@
-import React from 'react'
 import { useNavigate } from 'react-router';
-import Navbar from '../Navbar/Navbar';
 import './UserPage.css'
-import { Button } from '@chakra-ui/react';
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import { useContext, useState } from "react";
+import { AccountContext } from "../AccountContext";
+import TextField from "../Login/TextField";
+import * as Yup from "yup";
 
 const UserPage = () => {
+  const { user } = useContext<any>(AccountContext);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   return (
     <>
-      <Navbar />
-      <div className="ListingWrapper">
-        <div className="ProfilePreview">
-          <img src="https://cdn-icons-png.flaticon.com/512/848/848043.png"/>
-          <h2>Name Hanzomain</h2>
-          <p>Title maybe a specific seller</p>
-          <p>About page about this person, he is kind</p>
+    <Formik
+      initialValues={{ fullname: "", location: "", bio: "" }}
+      validationSchema={Yup.object({
+        fullname: Yup.string()
+          .required("fullname required!")
+          .min(6, "fullname too short!")
+          .max(50, "fullname too long!"),
+        location: Yup.string()
+          .required("location required!")
+          .min(6, "location too short!")
+          .max(200, "location too long!"),
+        bio: Yup.string()
+          .required("bio required!")
+          .min(0, "bio too short!")
+          .max(200, "bio too long!"),
+      })}
+      onSubmit={(values, actions) => {
+        const vals = { ...values, username: user.username };
+        actions.resetForm();
+        fetch("http://localhost:3001/auth/updateuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(vals),
+        })
+          .catch(err => {
+            return;
+          })
+          .then(res => {
+            if (!res || !res.ok || res.status >= 400) {
+              return;
+            }
+            return res.json();
+          })
+          .then(data => {
+            if (!data) return;
+            console.log("data", data);
+          });
+      }}
+    >
+      <VStack
+        as={Form}
+        w={{ base: "90%", md: "500px" }}
+        m="auto"
+        justify="center"
+        h="100vh"
+        spacing="1rem"
+      >
+        <Heading>Update user profile</Heading>
+        <Text as="p" color="red.500">
+          {error}
+        </Text>
 
-        </div>
-        <div className='ProfileEditor'>
-          <div className="nameUsername">
-            <h1>Profile</h1>
-            <input />
-            <h3>Full name</h3>
-            <h3>Username</h3>
-            <input />
-          </div>
-          <div className='prelim'>
-            <h3>Location</h3>
-            <input />
-            <h3>Bio</h3>
-            <input />
-          </div>
-          <Button 
-            className="btnSaveListing"
-            onClick={() => alert("Saved data")}
-            type="submit">
-            <b>Publish</b>
+        <TextField
+          name="fullname"
+          placeholder="Change name"
+          label="Full name"
+          autoComplete="off"
+        />
+
+        <TextField
+          name="location"
+          label="Location"
+          placeholder="Change Location"
+          autoComplete="off"
+        />
+
+        <TextField
+          name="bio"
+          placeholder="Change Bio"
+          autoComplete="off"
+          label="Bio"
+        />
+
+        <ButtonGroup pt="1rem">
+          <Button colorScheme="teal" type="submit">
+          Make changes
           </Button>
-        </div>
-      </div>
+          <Button onClick={() => navigate("/home")} leftIcon={<ArrowBackIcon />}>
+            Back
+          </Button>
+        </ButtonGroup>
+      </VStack>
+    </Formik>
     </>
   )
 }

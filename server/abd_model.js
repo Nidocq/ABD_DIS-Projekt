@@ -13,9 +13,25 @@ const getUser = (username) => {
 
 const registerUser = (body, passhash) => {
   return new Promise(function (resolve, reject) {
-    const { username  } = body
-    pool.query("INSERT INTO users(username, passhash) values($1,$2) RETURNING id, username",
-      [username, passhash], (error, results) => {
+    const { username, fullname, location, bio  } = body
+    pool.query("INSERT INTO users(username, passhash, fullname, location, bio) values($1,$2,$3,$4,$5) RETURNING id, username",
+      [username, passhash, fullname, location, bio], (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results);
+        }
+      })
+  })
+}
+
+const updateUser = (body) => {
+  return new Promise(function (resolve, reject) {
+    
+    const { username, fullname, location, bio  } = body
+    console.log(body);
+    pool.query("UPDATE users SET fullname=$2, location=$3, bio=$4 WHERE username=$1 RETURNING id, username",
+      [username, fullname, location, bio], (error, results) => {
         if (error) {
           reject(error)
         } else {
@@ -27,5 +43,6 @@ const registerUser = (body, passhash) => {
 
 module.exports = {
   registerUser,
-  getUser
+  getUser,
+  updateUser
 }

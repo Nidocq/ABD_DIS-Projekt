@@ -46,7 +46,7 @@ router.post("/signup", async (req, res) => {
     if (existingUser.rowCount === 0) {
         // register
         const hashedPass = await bcrypt.hash(req.body.password, 10);
-    
+
         const newUserQuery = await abd_model.registerUser(req.body, hashedPass);
         req.session.user = {
             username: req.body.username,
@@ -57,4 +57,18 @@ router.post("/signup", async (req, res) => {
         res.json({ loggedIn: false, status: "Username taken" });
     }
 });
+
+
+router.post("/updateuser", async (req, res) => {
+    const updateUserQuery = await abd_model.updateUser(req.body);
+
+    console.log("updated user query", updateUserQuery)
+    res.json({
+        loggedIn: true,
+        fullname: req.body.fullname,
+        location: req.body.location,
+        bio: req.body.bio,
+    });
+});
+
 module.exports = router;

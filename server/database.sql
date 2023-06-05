@@ -1,5 +1,8 @@
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(28) NOT NULL UNIQUE,
-    passhash VARCHAR NOT NULL
+    passhash VARCHAR NOT NULL,
+    fullname VARCHAR(100) NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    bio VARCHAR(300) NOT NULL
 );

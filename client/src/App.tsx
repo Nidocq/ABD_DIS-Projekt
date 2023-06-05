@@ -10,7 +10,6 @@ function App() {
     <UserContext>
       <div className="App">
         <Views />
-        <HomeScreen />
       </div>
     </UserContext>
   );
