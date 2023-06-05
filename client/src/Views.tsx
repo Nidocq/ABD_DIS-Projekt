@@ -10,26 +10,22 @@ import PrivateRoutes from './components/PrivateRoutes';
 import Navbar from './components/Navbar/Navbar';
 function Views(props: any) {
     return (
-            <>
+        <>
             <Navbar />
-
-            <SignUp />
-            </>
-/*         <Routes>
-             <Route path="*" element={<Login />} />  
-                         <Route path="/" element={<Login />} /> 
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/CreateListing" element={<CreateListing />} />
-            <Route path="/Listing" element={<Listing />} />
-            <Route path="/UserPage" element={<UserPage />} />
-            <Route path="/ItemView" element={<ItemView />} />
-            {/*             <Route element={<PrivateRoutes />}>
-            </Route> 
-
-            <Route path="*" element={<CreateListing />}></Route>
-        </Routes> */
+            <Routes>
+                <Route path="*" element={<Login />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route element={<PrivateRoutes />}>
+                    <Route path="/home" element={<HomeScreen />} />
+                    <Route path="/createlisting" element={<CreateListing />} />
+                    <Route path="/listing" element={<Listing />} />
+                    <Route path="/updateuser" element={<UserPage />} />
+                    <Route path="/itemview" element={<ItemView />} />
+                </Route>
+            </Routes>
+        </>
     );
 }
 

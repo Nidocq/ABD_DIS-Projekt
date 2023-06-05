@@ -59,6 +59,7 @@ const SignUp = () => {
           .then(data => {
             if (!data) return;
             setUser({ ...data });
+            
             if (data.status) {
               setError(data.status);
             } else if (data.loggedIn) {

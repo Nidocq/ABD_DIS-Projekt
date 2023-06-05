@@ -25,7 +25,24 @@ const registerUser = (body, passhash) => {
   })
 }
 
+const updateUser = (body) => {
+  return new Promise(function (resolve, reject) {
+    
+    const { username, fullname, location, bio  } = body
+    console.log(body);
+    pool.query("UPDATE users SET fullname=$2, location=$3, bio=$4 WHERE username=$1 RETURNING id, username",
+      [username, fullname, location, bio], (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results);
+        }
+      })
+  })
+}
+
 module.exports = {
   registerUser,
-  getUser
+  getUser,
+  updateUser
 }
