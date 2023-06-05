@@ -9,7 +9,7 @@ import TextField from "../Login/TextField";
 import * as Yup from "yup";
 
 const UserPage = () => {
-  const { setUser } = useContext<any>(AccountContext);
+  const { user } = useContext<any>(AccountContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   return (
@@ -31,7 +31,7 @@ const UserPage = () => {
           .max(200, "bio too long!"),
       })}
       onSubmit={(values, actions) => {
-        const vals = { ...values };
+        const vals = { ...values, username: user.username };
         actions.resetForm();
         fetch("http://localhost:3001/auth/updateuser", {
           method: "POST",
@@ -51,12 +51,7 @@ const UserPage = () => {
           })
           .then(data => {
             if (!data) return;
-            setUser({ ...data });
-            if (data.status) {
-              setError(data.status);
-            } else if (data.loggedIn) {
-              navigate("/userpage");
-            }
+            console.log("data", data);
           });
       }}
     >

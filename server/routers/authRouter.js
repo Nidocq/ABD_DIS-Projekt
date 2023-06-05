@@ -60,17 +60,15 @@ router.post("/signup", async (req, res) => {
 
 
 router.post("/updateuser", async (req, res) => {
-
-    const existingUser = await abd_model.getUser(req.body.username);
-
     const updateUserQuery = await abd_model.updateUser(req.body);
 
     console.log("updated user query", updateUserQuery)
-    req.session.user = {
-        username: req.body.username,
-        id: newUserQuery.rows[0].id,
-    };
-    res.json({ loggedIn: true, username: req.body.username });
+    res.json({
+        loggedIn: true,
+        fullname: req.body.fullname,
+        location: req.body.location,
+        bio: req.body.bio,
+    });
 });
 
 module.exports = router;
