@@ -9,7 +9,7 @@ CREATE TABLE users(
     id SERIAL UNIQUE, 
     passhash VARCHAR NOT NULL,
     fullname VARCHAR(100) NOT NULL,
-    location VARCHAR(150) NOT NULL,
+    location VARCHAR(150) UNIQUE NOT NULL,
     bio VARCHAR(300) NOT NULL
 );
 
@@ -21,9 +21,17 @@ CREATE TABLE listings (
     img VARCHAR(300) NOT NULL,
     sold BOOLEAN NOT NULL,
     username VARCHAR(28) NOT NULL,
-    location VARCHAR(150) REFERENCES users ON DELETE CASCADE,
+    location VARCHAR(150),
     CONSTRAINT fk_user
         FOREIGN KEY (username) 
         REFERENCES users(username)
-            ON DELETE CASCADE
+            ON DELETE CASCADE,
+    CONSTRAINT fk_location
+        FOREIGN KEY (location) 
+        REFERENCES users(location) 
+        ON DELETE NO ACTION
 );
+
+-- dummy data
+INSERT INTO users VALUES ('username', 11, '$2b$10$m0YIOcDUylFimtsbGs11HuoErdxfD9eO6WA/pvOu6CfImUj/PqFmm', 'philphil', 'Hvidovrevej', 'This is bio');
+INSERT INTO listings VALUES (123, 'Toy train', 'This is toy train very beautiful', 3999, 's', false, 'username', 'Hvidovrevej');
