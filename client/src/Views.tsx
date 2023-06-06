@@ -17,10 +17,11 @@ function Views(props: any) {
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/itempreview" element={<Listing />} />
+
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" element={<HomeScreen />} />
                     <Route path="/createlisting" element={<CreateListing />} />
-                    <Route path="/listing" element={<Listing />} />
                     <Route path="/updateuser" element={<UserPage />} />
                     <Route path="/itemview" element={<ItemView />} />
                 </Route>
