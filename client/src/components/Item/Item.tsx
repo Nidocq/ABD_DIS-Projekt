@@ -1,5 +1,6 @@
 import React from "react";
 import './Item.css';
+import { useNavigate } from "react-router";
 
 export interface ItemProps {
     id: number;
@@ -18,12 +19,15 @@ export interface ItemProps {
 function Item(props: ItemProps) {
 
     const [isLiked, setIsLiked] = React.useState(props.isLiked);
-
+    const navigate = useNavigate();
     const toggleLike = () => {
         setIsLiked(!isLiked);
     }
     return (
-        <div className="item-container">
+        <div
+        onClick={() => navigate(`/item-preview/${props.id}`)}
+        className="item-container">
+
             <img
                 src={props.img}
                 className="item-image-big"

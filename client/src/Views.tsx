@@ -10,18 +10,19 @@ import Navbar from './components/Navbar/Navbar';
 function Views(props: any) {
     return (
         <>
+
             <Navbar />
             <Routes>
                 <Route path="*" element={<Login />} />
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/itempreview" element={<ItemPreview />} />
 
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" element={<HomeScreen />} />
                     <Route path="/createlisting" element={<CreateListing />} />
                     <Route path="/updateuser" element={<UserPage />} />
+                    <Route path="/item-preview/:itemId" element={<ItemPreview />} />
                 </Route>
             </Routes>
         </>

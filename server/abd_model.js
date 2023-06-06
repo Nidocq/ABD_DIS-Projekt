@@ -52,10 +52,25 @@ const getListingItems = () => {
   })
 }
 
+const getListingItemsById = (body) => {
+  
+  return new Promise(function (resolve, reject) {
+    const { itemId } = body
+
+    pool.query("SELECT * FROM listings WHERE id=$1", [itemId], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results);
+    })
+  })
+}
+
 
 module.exports = {
   registerUser,
   getUser,
   updateUser,
-  getListingItems
+  getListingItems,
+  getListingItemsById
 }
