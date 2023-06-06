@@ -41,8 +41,21 @@ const updateUser = (body) => {
   })
 }
 
+const getListingItems = () => {
+  return new Promise(function (resolve, reject) {
+    pool.query("SELECT * FROM listings", (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results);
+    })
+  })
+}
+
+
 module.exports = {
   registerUser,
   getUser,
-  updateUser
+  updateUser,
+  getListingItems
 }

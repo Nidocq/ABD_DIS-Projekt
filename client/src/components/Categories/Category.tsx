@@ -5,30 +5,6 @@ import './Category.css';
 const getCategorySuggestions = async (text: string) : Promise<void> => {
 }
 
-
-
-
-/* = [
-    {
-        TextDisplay: "All"
-    },
-    {
-        TextDisplay: "Art"
-    },
-    {
-        TextDisplay: "Photography"
-    },
-    {
-        TextDisplay: "Music"
-    },
-    {
-        TextDisplay: "Sport"
-    }
-] */
-
-
-
-
 const getItems = () => {
     fetch('http://localhost:3001')
     .then(response => response.json())

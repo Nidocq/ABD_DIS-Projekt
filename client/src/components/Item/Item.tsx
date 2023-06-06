@@ -3,12 +3,15 @@ import './Item.css';
 
 export interface ItemProps {
     id: number;
-    isLiked: boolean;
+    isLiked: boolean; // CHECK IF USER HAS LIKED THIS ITEM IN SQL
     img: string;
     title: string;
     owner: string;
     description: string;
-    likes: number;
+    likes: number;  // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
+    sold: boolean;
+    location: string;
+    price: number;
 }
 
 

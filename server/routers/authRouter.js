@@ -72,24 +72,11 @@ router.post("/updateuser", async (req, res) => {
 });
 
 
-router.post("/createlisting", async (req, res) => {
 
-    const existingUser = await abd_model.getUser(req.body.username);
+router.get("/listingitems", async (req, res) => {
+    const listingItems = await abd_model.getListingItems();
+    res.json(listingItems.rows);
 
-    if (existingUser.rowCount === 0) {
-        // register
-        const hashedPass = await bcrypt.hash(req.body.password, 10);
-
-        const newUserQuery = await abd_model.registerUser(req.body, hashedPass);
-        req.session.user = {
-            username: req.body.username,
-            id: newUserQuery.rows[0].id,
-        };
-        res.json({ loggedIn: true, username: req.body.username });
-    } else {
-        res.json({ loggedIn: false, status: "Username taken" });
-    }
-});
-
+})
 
 module.exports = router;
