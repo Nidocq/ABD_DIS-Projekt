@@ -3,8 +3,7 @@ import Login from './components/Login/Login';
 import SignUp from './components/Login/SignUp';
 import CreateListing from './components/CreateListing/CreateListing';
 import UserPage from './components/UserPage/UserPage';
-import Listing from './components/Listing/Listing';
-import ItemView from './components/ItemView/ItemView';
+import ItemPreview from './components/ItemPreview/ItemPreview';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import PrivateRoutes from './components/PrivateRoutes';
 import Navbar from './components/Navbar/Navbar';
@@ -17,13 +16,12 @@ function Views(props: any) {
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/itempreview" element={<Listing />} />
+                <Route path="/itempreview" element={<ItemPreview />} />
 
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" element={<HomeScreen />} />
                     <Route path="/createlisting" element={<CreateListing />} />
                     <Route path="/updateuser" element={<UserPage />} />
-                    <Route path="/itemview" element={<ItemView />} />
                 </Route>
             </Routes>
         </>

@@ -1,4 +1,4 @@
-import ItemView from "../ItemView/ItemView";
+import ListingItems from "../ListingItems/ListingItems";
 import "./HomeScreen.css";
 import Category from "../Categories/Category";
 import { useNavigate } from "react-router";
@@ -16,7 +16,7 @@ function HomeScreen() {
                 <a href="./hello" >jdsflkjdfl</a>
         </div>
         <Category />
-        <ItemView />
+        <ListingItems />
       </div>
     </main>
   );

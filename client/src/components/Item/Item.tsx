@@ -62,6 +62,5 @@ function Item(props: ItemProps) {
         </div>
     );
 }
-//                            
-// HomeScreen (ItemView) -> ItemView (array Af items) -> Item
+
 export default Item;

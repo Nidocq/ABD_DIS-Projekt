@@ -1,8 +1,8 @@
-import './Listing.css'
+import './ItemPreview.css'
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
 
-const Listing = () => {
+const ItemPreview = () => {
   const { user } = useContext<any>(AccountContext);
   let stringUser = JSON.stringify(user);
   console.log("user: ", stringUser);
@@ -16,4 +16,4 @@ const Listing = () => {
   )
 }
 
-export default Listing 
+export default ItemPreview; 

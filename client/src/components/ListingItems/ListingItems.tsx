@@ -1,7 +1,7 @@
 import React from "react";
 import Item, { ItemProps } from "../Item/Item";
 import { IconName } from "@fortawesome/free-solid-svg-icons";
-import './ItemView.css';
+import './ListingItems.css';
 
 
 // TODO: This should idealy be a json file
@@ -144,7 +144,7 @@ const itemArray:ItemProps[] = [
 ];
 
 
-function ItemView() {
+function ListingItems() {
     // TODO: This should be fetched from database
     const [items, setItems] = React.useState(itemArray);
 
@@ -167,4 +167,4 @@ function ItemView() {
     );
 }
 
-export default ItemView;
+export default ListingItems;
