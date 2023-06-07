@@ -34,7 +34,11 @@ where <username> is the logged in user e.g : '/Users/phillip/' or on windows 'C:
 
 ### PostgresSQL
 Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`.
+<<<<<<< HEAD
 Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql < ./server/database.sql`. Remember to configure the .env file to match the credentials. We have called our database 'my_database'
+=======
+Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client.
+>>>>>>> e02e24d71066cb83a5752f4b42a761aeac003c72
 
 #### Software used
 :page_facing_up: [React (Front end)]() \
