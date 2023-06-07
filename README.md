@@ -1,21 +1,21 @@
 ## ABD
-### Get everything
+Last Project from the DIS course at KU datalogi developed by Mahmood Seoud (email) and Phillip Lundin (kxg220@alumni.ku.dk). The project is a clone from the popular second hand platform https://www.dba.dk called ABD.
+
 
 # Getting started
 Install the necessary libraries in order to launch the server.
-Starting the website \
+Starting the website 
 ```bash
-cd ABD
-npm i && node start
+cd client && npm i
+node start
 ```
 
 Starting the server \
 Start a new terminal
 ```bash
-cd ../nodeJSServer 
-npm i && node start index.js
+cd server && npm i
+node start index.js
 ```
-Then you can start the server and
 
 Remember to create a environment file in order to define your user settings
 for effective setup. Create this file in the './server/' folder. \
@@ -32,8 +32,11 @@ ENVIRONMENT=production
 ```
 where <username> is the logged in user e.g : '/Users/phillip/' or on windows 'C:/Users/phillip'
 
+### PostgresSQL
+Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`.
+Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client.
+
 #### Software used
-:page_facing_up: [Standalone PostgreSQL (Database)](https://www.postgresql.org/download/) \
 :page_facing_up: [React (Front end)]() \
 :page_facing_up: [NodeJS (Server)]()
 
