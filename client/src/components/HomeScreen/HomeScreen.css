@@ -1,3 +1,9 @@
+.bodyClass {
+  margin: 0 50px;
+  display: flex; /*added*/
+  flex-direction: column; /*added*/
+}
+
 .titleWrapper {
   text-align: center;
   margin: 90px 0 30px 0;
@@ -15,8 +21,3 @@ h1, h4{
   margin-top: 10px;
 }
 
-.bodyClass {
-  margin: 0 50px;
-  display: flex; /*added*/
-  flex-direction: column; /*added*/
-}
