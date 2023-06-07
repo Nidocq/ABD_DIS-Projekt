@@ -33,9 +33,8 @@ ENVIRONMENT=production
 where <username> is the logged in user e.g : '/Users/phillip/' or on windows 'C:/Users/phillip'
 
 ### PostgresSQL
-Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`.
+Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`. \
 Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql < ./server/database.sql`. Remember to configure the .env file to match the credentials. We have called our database 'my_database'
-=======
 
 #### Software used
 :page_facing_up: [React (Front end)]() \
