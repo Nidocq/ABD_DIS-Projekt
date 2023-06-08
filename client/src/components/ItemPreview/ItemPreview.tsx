@@ -22,8 +22,31 @@ import {
 
 const ItemPreview = () => {
   const { user } = useContext<any>(AccountContext);
-  const { itemId } = useParams();
 
+  const { itemId } = useParams();
+  const [ itemProps, setitemProps ] = useState({
+    categories: [],
+    description: '',
+    id: 0,
+    img: [''],
+    location: '',
+    price: 0,
+    sold: false,
+    title: '',
+    username: ''
+});
+const [ sellerUser, setsellerUser ] = useState({
+  username: '',
+  id: 0, 
+  passhash: '',
+  fullname: '',
+  location: '',
+  bio: '',
+  user_since: '',
+  picture: ''
+})
+
+  // Fetch the item that was clicked on and save it to itemProps via useState
   useEffect(() => {
     fetch(`http://localhost:3001/auth/item-preview`, {
       method: "POST",
@@ -34,9 +57,39 @@ const ItemPreview = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log("data: ", data)
+        if (!data) return;
+        // The [0] is there because we only want one object and we get that 
+        // from the item-preview fetch
+        setitemProps([...data][0]);
+        console.log("Fetched data : ", data)
       });
   }, [])
+
+
+  // Fetch the user who is selling the current item
+  // useEffect(() => {
+  //   fetch(`http://localhost:3001/getuser`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     // This will get the username of the seller 
+  //     // from the item that the user clicked on
+  //     body: JSON.stringify({ username: 'username' }),
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       if (!data) return;
+  //       // The [0] is there because we only want one object and we get that 
+  //       // from the item-preview fetch
+  //       setsellerUser([...data][0]);
+  //       console.log("What is this", data);
+  //     });
+  // }, [])
+
+
+  console.log("Your profile is : ", user);
+  console.log("Profile selling item is : ", sellerUser);
 
   return (
     <HStack
@@ -50,19 +103,24 @@ const ItemPreview = () => {
       <Card maxW='500px'>
         <CardBody>
           <Image
-            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-            alt='Green double couch with wooden legs'
+            src={itemProps.img[0]}
             maxW='500px'
           />
+          <HStack>
+            {/* {itemProps.img.map(pic, index) => {
+              return <Image
+                      src={pic}
+                      maxW='100px'
+                     />
+            })} */}
+          </HStack>
           <Stack mt='6' spacing='3'>
-            <Heading size='md'>Living room Sofa</Heading>
+            <Heading size='md'>{itemProps.title}</Heading>
             <Text>
-              This sofa is perfect for modern tropical spaces, baroque inspired
-              spaces, earthy toned spaces and for people who love a chic design with a
-              sprinkle of vintage design.
+              {itemProps.description}
             </Text>
             <Text color='blue.600' fontSize='2xl'>
-              $450
+              {itemProps.price},-
             </Text>
           </Stack>
         </CardBody>
@@ -91,9 +149,9 @@ const ItemPreview = () => {
               <Box>
                 <Img
                   boxSize='50px'
-                  src='https://bit.ly/dan-abramov'
+                  src={sellerUser.picture}
                   borderRadius='40px'
-                  alt='Dan Abramov'
+                  alt={sellerUser.fullname}
                 />
               </Box>
               <Box >
