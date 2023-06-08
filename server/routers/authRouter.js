@@ -81,4 +81,9 @@ router.post("/item-preview", async (req, res) => {
     res.json(listingItems.rows);
 })    
 
+router.post("/getuser", async (req, res) => {
+    const getUser = await abd_model.getUserByUsername(req.body);
+    res.json(getUser.rows);
+})    
+
 module.exports = router;
