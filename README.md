@@ -23,9 +23,9 @@ An example file looks like this:
 ```
 DATABASE_NAME=<database name>
 DATABASE_HOST=localhost
-DATABASE_PASSWORD=<password>
-DATABASE_PORT=<port_for_db>(most likely 5432)
-DATABASE_USER=<username>
+DATABASE_PASSWORD=<database password>
+DATABASE_PORT=<database port>(most likely 5432)
+DATABASE_USER=<database username>
 
 COOKIE_SECRET=keyboard cat
 ENVIRONMENT=production
