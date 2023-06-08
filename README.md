@@ -78,7 +78,7 @@ erDiagram
 		int id FK
 	}
 
-	Listings }|--|| User : Own
-	User }|--|{ User : Follows
-	User |o--|{ Listings : Favorites
+	listings }|--|| users : Own
+	users }|--|{ users : Follows
+	users |o--|{ listings : Favorites
 ```
