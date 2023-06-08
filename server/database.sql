@@ -82,7 +82,7 @@ INSERT INTO listings VALUES (
     'This is toy train very beautiful', 
     20, 
     '{toy, games}',
-    '{https://m.media-amazon.com/images/I/71PKOF8Gz3L._AC_UF894,1000_QL80_.jpg?w=2000}', 
+    '{https://m.media-amazon.com/images/I/71PKOF8Gz3L._AC_UF894\,1000_QL80_.jpg?w=2000}', 
     false, 
     'username', 
     'Hvidovrevej'
