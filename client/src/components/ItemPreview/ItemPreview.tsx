@@ -32,6 +32,7 @@ const ItemPreview = () => {
     location: '',
     price: 0,
     sold: false,
+    time_listed: '',
     title: '',
     username: ''
 });
@@ -67,25 +68,25 @@ const [ sellerUser, setsellerUser ] = useState({
 
 
   // Fetch the user who is selling the current item
-  // useEffect(() => {
-  //   fetch(`http://localhost:3001/getuser`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     // This will get the username of the seller 
-  //     // from the item that the user clicked on
-  //     body: JSON.stringify({ username: 'username' }),
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       if (!data) return;
-  //       // The [0] is there because we only want one object and we get that 
-  //       // from the item-preview fetch
-  //       setsellerUser([...data][0]);
-  //       console.log("What is this", data);
-  //     });
-  // }, [])
+  useEffect(() => {
+    fetch(`http://localhost:3001/auth/getuser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // This will get the username of the seller 
+      // from the item that the user clicked on
+      body: JSON.stringify({ username: 'username' }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data) return;
+        // The [0] is there because we only want one object and we get that 
+        // from the item-preview fetch
+        setsellerUser([...data][0]);
+        console.log("What is this", data);
+      });
+  }, [])
 
 
   console.log("Your profile is : ", user);
@@ -149,9 +150,9 @@ const [ sellerUser, setsellerUser ] = useState({
               <Box>
                 <Img
                   boxSize='50px'
-                  src={sellerUser.picture}
+                  // src={sellerUser.picture}
                   borderRadius='40px'
-                  alt={sellerUser.fullname}
+                  // alt={sellerUser.fullname}
                 />
               </Box>
               <Box >

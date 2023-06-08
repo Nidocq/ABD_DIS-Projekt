@@ -23,6 +23,7 @@ CREATE TABLE listings (
     categories text[],
     img text[],
     sold BOOLEAN NOT NULL,
+    time_listed DATE,
     username VARCHAR(28) NOT NULL,
     location  VARCHAR(150),
     CONSTRAINT fk_user
@@ -65,7 +66,8 @@ INSERT INTO users VALUES (
     'philphil', 
     'Hvidovrevej',
     'This is bio',
-    Now()
+    Now(),
+    'https://randomuser.me/api/portraits/women/87.jpg'
 );
 INSERT INTO users VALUES (
     'anotherUser', 
@@ -74,7 +76,8 @@ INSERT INTO users VALUES (
     'hanzomain', 
     'Kokkedal',
     'This is bio',
-    Now()
+    Now(),
+    'https://randomuser.me/api/portraits/women/63.jpg'
 );
 INSERT INTO listings VALUES (
     123,
@@ -84,6 +87,7 @@ INSERT INTO listings VALUES (
     '{toy, games}',
     '{https://m.media-amazon.com/images/I/71PKOF8Gz3L._AC_UF894\,1000_QL80_.jpg?w=2000}', 
     false, 
+    Now(),
     'username', 
     'Hvidovrevej'
 );
@@ -95,6 +99,7 @@ INSERT INTO listings VALUES (
     '{service}',
     '{https://img.freepik.com/free-photo/astronaut-explores-outer-dark-space-generative-al_169016-28607.jpg?w=2000}',
     false, 
+    Now(),
     'username', 
     'Hvidovrevej'
 );
@@ -106,7 +111,9 @@ INSERT INTO listings VALUES (
     '{Building}',
     '{https://upload.wikimedia.org/wikipedia/commons/f/f8/Judge_Roy_Bean.jpg?2=2000}',
     false,
-    'anotherUser'
+    Now(),
+    'anotherUser',
+    'Kokkedal'
 );
 
 INSERT INTO follows VALUES (
