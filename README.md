@@ -1,5 +1,5 @@
 ## ABD
-Last Project from the DIS course at KU datalogi developed by Mahmood Seoud (email) and Phillip Lundin (kxg220@alumni.ku.dk). The project is a clone from the popular second hand platform https://www.dba.dk called ABD.
+Last Project from the DIS course at KU datalogi developed by Mahmood Seoud (tbc115@alumni.ku.dk) and Phillip Lundin (kxg220@alumni.ku.dk). The project is a clone from the popular second hand platform https://www.dba.dk called ABD.
 
 
 # Getting started
@@ -18,8 +18,7 @@ node index.js
 ```
 
 Remember to create a environment file in order to define your user settings
-for effective setup. Create this file in the './server/' folder. \
-An example file looks like this:
+for effective setup. Create this file in the './server/' folder with the following command `touch ./server/.env`. Paste the text from below into the .env file that you just created.
 ```
 DATABASE_NAME=<database name>
 DATABASE_HOST=localhost
@@ -30,17 +29,17 @@ DATABASE_USER=<database username>
 COOKIE_SECRET=keyboard cat
 ENVIRONMENT=production
 ```
-where <username> is the logged in user e.g : '/Users/phillip/' or on windows 'C:/Users/phillip'
+where <database username> is your currently logged in username e.g 'phillip' as in '/Users/phillip/' or on windows 'C:/Users/phillip'
 
 ### PostgresSQL
 Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`. \
-Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql -d my_database < ./server/database.sql && psql -d my_database` (my_database is the same name as the DATABASE_NAME in the .env file). Remember to configure the .env file to match the credentials. We have called our database 'my_database'
+Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql -d my_database < ./server/database.sql && psql -d <database name>`, or you can configure it manually from the ![server file](https://github.com/Nidocq/ABD_DIS-Projekt/blob/main/server/database.sql) (Remember <database name> should be the same name as the DATABASE_NAME in the .env file). Please configure the .env file to match the rest of the credentials.
 
 #### Software used
 :page_facing_up: [React (Front end)]() \
 :page_facing_up: [NodeJS (Server)]()
 
-### E/R Diagram
+# E/R Diagram
 ```mermaid
 ---
 title: ABD ER Diagram
