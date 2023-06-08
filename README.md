@@ -21,10 +21,10 @@ Remember to create a environment file in order to define your user settings
 for effective setup. Create this file in the './server/' folder. \
 An example file looks like this:
 ```
-DATABASE_NAME=my_database
+DATABASE_NAME=<database name>
 DATABASE_HOST=localhost
-DATABASE_PASSWORD=
-DATABASE_PORT=5432
+DATABASE_PASSWORD=<password>
+DATABASE_PORT=<port_for_db>(most likely 5432)
 DATABASE_USER=<username>
 
 COOKIE_SECRET=keyboard cat
