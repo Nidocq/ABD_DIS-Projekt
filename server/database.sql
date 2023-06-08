@@ -23,7 +23,7 @@ CREATE TABLE listings (
     categories text[],
     img text[],
     sold BOOLEAN NOT NULL,
-    time_listed DATE,
+    time_listed DATE NOT NULL,
     username VARCHAR(28) NOT NULL,
     location  VARCHAR(150),
     CONSTRAINT fk_user

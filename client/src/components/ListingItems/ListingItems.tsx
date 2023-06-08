@@ -8,15 +8,18 @@ function ListingItems() {
     // TODO: This should be fetched from database
     const [items, setItems] = React.useState([{
         id: 0,
-        isLiked: false, // CHECK IF USER HAS LIKED THIS ITEM IN SQL
-        img: "",
         title: '',
-        owner: '',
         description: '',
-        likes: 0, // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
+        price: 0,
+        categories: [],
+        img: [],
+        username: '',
         sold: false,
-        location: '',
-        price: 0
+        time_listed: '',
+        location:'',
+
+        likes: 0, // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
+        isLiked: false, // CHECK IF USER HAS LIKED THIS ITEM IN SQL
     }]);
 
     const [error, setError] = useState(null);
@@ -53,11 +56,12 @@ function ListingItems() {
                     key={index}
                     id={item.id}
                     isLiked={item.isLiked}
-                    img={item.img}
-                    title={item.title}
-                    owner={item.owner}
-                    description={item.description}
                     likes={item.likes}
+                    img={item.img[0]}
+                    title={item.title}
+                    categories={item.categories[0]}
+                    owner={item.username}
+                    description={item.description}
                     sold={item.sold}
                     price={item.price}
                     location={item.location}

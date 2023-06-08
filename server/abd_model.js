@@ -11,16 +11,7 @@ const getUser = (username) => {
   })
 }
 
-const getUserByUsername = (reqUsername) => {
-  return new Promise(function (resolve, reject) {
-    pool.query( "SELECT * FROM users u WHERE u.username=$1", [reqUsername], (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(results);
-    })
-  })
-}
+
 
 
 const registerUser = (body, passhash) => {
@@ -78,6 +69,16 @@ const getListingItemsById = (body) => {
   })
 }
 
+const getUserByUsername = (reqUsername) => {
+  return new Promise(function (resolve, reject) {
+    pool.query( "SELECT * FROM users u WHERE u.username=$1", [reqUsername], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results);
+    })
+  })
+}
 
 module.exports = {
   registerUser,

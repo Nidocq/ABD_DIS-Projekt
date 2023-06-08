@@ -47,6 +47,7 @@ const [ sellerUser, setsellerUser ] = useState({
   picture: ''
 })
 
+
   // Fetch the item that was clicked on and save it to itemProps via useState
   useEffect(() => {
     fetch(`http://localhost:3001/auth/item-preview`, {
@@ -62,7 +63,6 @@ const [ sellerUser, setsellerUser ] = useState({
         // The [0] is there because we only want one object and we get that 
         // from the item-preview fetch
         setitemProps([...data][0]);
-        console.log("Fetched data : ", data)
       });
   }, [])
 
@@ -76,7 +76,7 @@ const [ sellerUser, setsellerUser ] = useState({
       },
       // This will get the username of the seller 
       // from the item that the user clicked on
-      body: JSON.stringify({ username: 'username' }),
+      body: JSON.stringify({ username: itemProps.username }),
     })
       .then(res => res.json())
       .then(data => {
@@ -84,7 +84,6 @@ const [ sellerUser, setsellerUser ] = useState({
         // The [0] is there because we only want one object and we get that 
         // from the item-preview fetch
         setsellerUser([...data][0]);
-        console.log("What is this", data);
       });
   }, [])
 
@@ -100,7 +99,7 @@ const [ sellerUser, setsellerUser ] = useState({
       h="100vh"
       spacing="1rem"
     >
-
+      <Text>{itemProps.time_listed}</Text>
       <Card maxW='500px'>
         <CardBody>
           <Image

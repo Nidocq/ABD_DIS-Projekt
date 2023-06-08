@@ -4,15 +4,17 @@ import { useNavigate } from "react-router";
 
 export interface ItemProps {
     id: number;
-    isLiked: boolean; // CHECK IF USER HAS LIKED THIS ITEM IN SQL
-    img: string;
     title: string;
-    owner: string;
     description: string;
-    likes: number;  // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
+    price: number;
+    categories : [string];
+    img: string;
+    owner: string;
     sold: boolean;
     location: string;
-    price: number;
+
+    likes: number;  // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
+    isLiked: boolean; // CHECK IF USER HAS LIKED THIS ITEM IN SQL
 }
 
 

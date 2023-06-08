@@ -33,7 +33,7 @@ where `<database username>` is your currently logged in username e.g 'phillip' a
 
 ### PostgresSQL
 Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`. \
-Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql -d my_database < ./server/database.sql && psql -d <database name>`, or you can configure it manually from the [server file](https://github.com/Nidocq/ABD_DIS-Projekt/blob/main/server/database.sql) (Remember `<database name>` should be the same name as the DATABASE_NAME in the .env file). Please configure the .env file to match the rest of the credentials.
+Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql -d <database name> < ./server/database.sql && psql -d <database name>`, or you can configure it manually from the [server file](https://github.com/Nidocq/ABD_DIS-Projekt/blob/main/server/database.sql) (Remember `<database name>` should be the same name as the DATABASE_NAME in the .env file). Please configure the .env file to match the rest of the credentials.
 
 #### Software used
 :page_facing_up: [React (Front end)]() \
