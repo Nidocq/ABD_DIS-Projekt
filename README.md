@@ -63,7 +63,7 @@ erDiagram
 		string fullname 
 		string passhash
 		date user_since
-		string location CK
+		string locat
 		string picture
         string bio
 	}
