@@ -34,7 +34,7 @@ where <username> is the logged in user e.g : '/Users/phillip/' or on windows 'C:
 
 ### PostgresSQL
 Be sure to have PostgreSQL installed from [Standalone PostgreSQL](https://www.postgresql.org/download/) or by downloading the latest PostgresSQL from brew `brew install postgresql`. \
-Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql < ./server/database.sql`. Remember to configure the .env file to match the credentials. We have called our database 'my_database'
+Be sure to run SQL file in the server to create the instances of the tables so it can talk with the server and client. You can do that with the `psql -d my_database < ./server/database.sql && psql -d my_database` (my_database is the same name as the DATABASE_NAME in the .env file). Remember to configure the .env file to match the credentials. We have called our database 'my_database'
 
 #### Software used
 :page_facing_up: [React (Front end)]() \
@@ -46,8 +46,8 @@ Be sure to run SQL file in the server to create the instances of the tables so i
 title: ABD ER Diagram
 ---
 erDiagram
-	Listings {
-		int listing_id PK
+	listings {
+		int id PK
 		string title
 		string description
 		string[] category
@@ -56,27 +56,26 @@ erDiagram
 		int price
 		bool sold
 		string username FK
-		string_REF_user location 
+		string location FK
 	}
-	User {
-		string first_name
-		string last_name
+	users {
 		string username PK
-		string password 
+		string fullname 
+		string passhash
 		date user_since
-		string location
+		string location CK
 		string picture
-
+        string bio
 	}
 
-	RELATION_Following_User_User {
+	RELATION_follows {
 		int follower_username FK
 		int followed_username FK
 	}
 
-	RELATION_Favorized_User_Listings {
+	RELATION_favorites {
 		int username FK
-		int listing_id FK
+		int id FK
 	}
 
 	Listings }|--|| User : Own
