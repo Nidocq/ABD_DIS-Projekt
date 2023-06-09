@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { ItemProps } from '../Item/Item';
 import _ from 'lodash';
+import { AddIcon } from '@chakra-ui/icons';
 
 interface userProps {
   username: string,
@@ -173,10 +174,12 @@ const ItemPreview = () => {
         <CardFooter>
           <ButtonGroup spacing='2'>
          <Button colorScheme='blue'>Contact seller</Button> 
+         <Button colorScheme='red' > <AddIcon/> </Button> 
           </ButtonGroup>
         </CardFooter>
       </Card>
       <VStack
+        
         m="auto"
         justify="center"
         h="100vh"
