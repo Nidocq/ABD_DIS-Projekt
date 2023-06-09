@@ -43,7 +43,7 @@ interface itemProps {
   title: string,
   sold: boolean,
   timeListed: Date,
-  username: string | userProps
+  username: string
 };
 
 const _itemOwner: userProps = {
@@ -86,6 +86,8 @@ const ItemPreview = () => {
   const { itemId } = useParams();
   const [item, setItem] = useState<itemProps>(_item);
   const [itemOwner, setItemOwner] = useState<userProps>(_itemOwner);
+  const [itemLoaded, setItemLoaded] = useState(false);
+
 
   // Fetch the item that was clicked on and save it to itemProps via useState
   useEffect(() => {
@@ -99,7 +101,8 @@ const ItemPreview = () => {
       .then(data => {
         if (!data) return;
         const item = data[0];
-        setItem(item);
+        setItem({ ...item });
+        setItemLoaded(true);
       })
       .catch(error => {
         console.error("Error fetching item:", error);
@@ -108,7 +111,7 @@ const ItemPreview = () => {
 
   // Fetch the user who is selling the current item
   useEffect(() => {
-    if (_.isEqual(item, _item)) return; // Don't proceed if the item is not set yet
+    if (!itemLoaded || _.isEqual(item, _item)) return; // Don't proceed if item not loaded or item not set yet
     fetch(`http://localhost:3001/auth/getuser`, {
       method: "POST",
       headers: {
@@ -119,28 +122,34 @@ const ItemPreview = () => {
       .then(res => res.json())
       .then(data => {
         if (!data) return;
-        console.log("some data of the user:", data)
-        setItemOwner(data);
+        console.log("some data of the user:", data);
+        setItemOwner({ ...data });
       })
       .catch(error => {
         console.error("Error fetching user data:", error);
       });
-  }, [item]);
+  }, [itemLoaded]);
 
+  console.log("date!!", itemOwner.userSince)
   return (
+
+    item && itemOwner &&
     <HStack
-      w={{ base: "90%", md: "500px" }}
+      w={{ base: "90%", md: "1000px" }}
       m="auto"
       justify="center"
       h="100vh"
       spacing="1rem"
     >
-      <Text> date here:</Text>
-      <Card maxW='500px'>
+      <Text>date: {item.timeListed && item.timeListed.toUTCString()}
+
+      </Text>
+      <Card >
         <CardBody>
           <Image
             src={item.img[0]}
-            maxW='500px'
+            borderRadius='lg'
+
           />
           <HStack>
             {/* {itemProps.img.map(pic, index) => {
@@ -163,17 +172,11 @@ const ItemPreview = () => {
         <Divider />
         <CardFooter>
           <ButtonGroup spacing='2'>
-            <Button variant='solid' colorScheme='blue'>
-              Buy now
-            </Button>
-            <Button variant='ghost' colorScheme='blue'>
-              Add to cart
-            </Button>
+         <Button colorScheme='blue'>Contact seller</Button> 
           </ButtonGroup>
         </CardFooter>
       </Card>
       <VStack
-        w={{ base: "90%", md: "500px" }}
         m="auto"
         justify="center"
         h="100vh"
@@ -190,8 +193,8 @@ const ItemPreview = () => {
               alt={itemOwner.username}
             />
           </Box>
-          <Box >
-            {itemOwner.username}
+          <Box>
+            {user.username === itemOwner.username ? "You" : itemOwner.username}
           </Box>
         </HStack>
       </VStack>

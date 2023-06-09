@@ -117,6 +117,19 @@ INSERT INTO listings VALUES (
     'Kokkedal'
 );
 
+INSERT INTO listings VALUES (
+    696969,
+    'Kælder saloon',
+    'Old western saloon in the old western. Up for sale because the sherif was shot. Get it for cheap',
+    130000,
+    '{Building}',
+    '{https://upload.wikimedia.org/wikipedia/commons/f/f8/Judge_Roy_Bean.jpg?2=2000}',
+    false,
+    Now(),
+    'mahmut',
+    'Kokkedal'
+);
+
 INSERT INTO follows VALUES (
     'anotherUser',
     'username'

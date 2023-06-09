@@ -3,9 +3,12 @@ import Item, { ItemProps } from "../Item/Item";
 import { IconName } from "@fortawesome/free-solid-svg-icons";
 import './ListingItems.css';
 import { useNavigate } from "react-router";
+import { AccountContext } from "../AccountContext";
 
 function ListingItems() {
     // TODO: This should be fetched from database
+    const { user } = useContext<any>(AccountContext);
+
     const [items, setItems] = React.useState([{
         id: 0,
         title: '',
@@ -16,7 +19,7 @@ function ListingItems() {
         username: '',
         sold: false,
         time_listed: '',
-        location:'',
+        location: '',
 
         likes: 0, // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
         isLiked: false, // CHECK IF USER HAS LIKED THIS ITEM IN SQL
@@ -60,7 +63,7 @@ function ListingItems() {
                     img={item.img[0]}
                     title={item.title}
                     categories={item.categories[0]}
-                    owner={item.username}
+                    owner={item.username === user.username ? "You" : item.username }
                     description={item.description}
                     sold={item.sold}
                     price={item.price}
