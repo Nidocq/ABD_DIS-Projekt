@@ -19,7 +19,6 @@ function ListingItems() {
         img: [],
         username: '',
         sold: false,
-        timeListed: new Date(),
         location: '',
 
         likes: 0, // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
@@ -69,7 +68,6 @@ function ListingItems() {
                     sold={item.sold}
                     price={item.price}
                     location={item.location}
-                    timeListed={item.timeListed}
                 />
             })}
         </div>

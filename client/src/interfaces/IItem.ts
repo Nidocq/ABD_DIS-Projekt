@@ -6,7 +6,6 @@ export default interface Item {
   categories: string[],
   price: number,
   sold: boolean,
-  timeListed: Date,
   username: string
   location: string,
 

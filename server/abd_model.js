@@ -2,8 +2,12 @@ const pool = require("./db");
 
 const registerUser = (body, passhash) => {
   return new Promise(function (resolve, reject) {
-    console.log(body);
     const { username, fullname, location, bio, picture } = body
+
+// TODO ADD QUERY TO CHECK IF USERNAME EXISTS
+
+// TODO ADD QUERY TO INSERT INTO Uses_ABD TABLE WITH USERNAME AND DATE
+
     pool.query("INSERT INTO Users(username, passhash, fullname, location, bio, picture) values($1,$2,$3,$4,$5,$6) RETURNING username",
       [username, passhash, fullname, location, bio, picture], (error, results) => {
         if (error) {
@@ -19,7 +23,6 @@ const updateUser = (body) => {
   return new Promise(function (resolve, reject) {
 
     const { username, fullname, location, bio } = body
-    console.log(body);
     pool.query("UPDATE Users SET fullname=$2, location=$3, bio=$4 WHERE username=$1 RETURNING username",
       [username, fullname, location, bio], (error, results) => {
         if (error) {
@@ -67,6 +70,9 @@ const getUserByUsername = (body) => {
     })
   })
 }
+
+
+// TODO ADD QUERY TO CREATE A NEW LISTING
 
 module.exports = {
   registerUser,

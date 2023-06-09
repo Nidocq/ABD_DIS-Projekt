@@ -41,7 +41,6 @@ let _item: IItem = {
   location: '',
   price: 0,
   sold: false,
-  timeListed: new Date(),
   title: '',
   username: '',
   likes: 0,
@@ -107,9 +106,7 @@ const ItemPreview = () => {
       h="100vh"
       spacing="1rem"
     >
-      <Text>date: {item.timeListed && item.timeListed.toUTCString()}
-
-      </Text>
+      <Text>date: </Text>
       <Card >
         <CardBody>
           <Image

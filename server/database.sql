@@ -22,7 +22,6 @@ CREATE TABLE Listings (
     categories text[],
     img text[],
     sold BOOLEAN NOT NULL,
-    timelisted DATE NOT NULL,
     username VARCHAR(28) NOT NULL,
     location  VARCHAR(150),
     PRIMARY KEY (lid),
@@ -37,6 +36,13 @@ since DATE NOT NULL,
 PRIMARY KEY (username, lid),
 FOREIGN KEY (username) REFERENCES Users(username),
 FOREIGN KEY (lid) REFERENCES Listings(lid)
+);
+
+CREATE TABLE Uses_ABD (
+    username VARCHAR(28) NOT NULL,
+    since DATE NOT NULL,    
+    PRIMARY KEY (username),
+    FOREIGN KEY (username) REFERENCES Users(username)
 );
 
 CREATE TABLE Favors (
@@ -84,7 +90,6 @@ INSERT INTO Listings VALUES (
     '{toy, games}',
     '{https://m.media-amazon.com/images/I/71PKOF8Gz3L._AC_UF894\,1000_QL80_.jpg?w=2000}', 
     false, 
-    Now(),
     'username', 
     'Hvidovrevej'
 );
@@ -96,7 +101,6 @@ INSERT INTO Listings VALUES (
     '{service}',
     '{https://img.freepik.com/free-photo/astronaut-explores-outer-dark-space-generative-al_169016-28607.jpg?w=2000}',
     false, 
-    Now(),
     'username', 
     'Hvidovrevej'
 );
@@ -109,7 +113,6 @@ INSERT INTO Listings VALUES (
     '{Building}',
     '{https://upload.wikimedia.org/wikipedia/commons/f/f8/Judge_Roy_Bean.jpg?2=2000}',
     false,
-    Now(),
     'anotherUser',
     'Kokkedal'
 );
