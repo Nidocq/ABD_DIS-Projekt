@@ -1,22 +1,22 @@
-DROP TABLE IF EXISTS favorites;
-DROP TABLE IF EXISTS follows;
-DROP TABLE IF EXISTS listings;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS Sells;
+DROP TABLE IF EXISTS Favorites;
+DROP TABLE IF EXISTS Follows;
+DROP TABLE IF EXISTS Listings;
+DROP TABLE IF EXISTS Users;
 
 
-CREATE TABLE users (
+CREATE TABLE Users (
     username VARCHAR(28) PRIMARY KEY,
-    id SERIAL UNIQUE, 
     passhash VARCHAR NOT NULL,
     fullname VARCHAR(100) NOT NULL,
     location VARCHAR(150) UNIQUE NOT NULL,
     bio VARCHAR(300),
-    usersince DATE NOT NULL,
+    Usersince DATE NOT NULL,
     picture VARCHAR
 );
 
-CREATE TABLE listings (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE Listings (
+    lid SERIAL PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     description VARCHAR(300),
     price INTEGER NOT NULL,
@@ -28,40 +28,53 @@ CREATE TABLE listings (
     location  VARCHAR(150),
     CONSTRAINT fk_user
         FOREIGN KEY (username) 
-            REFERENCES users(username)
+            REFERENCES Users(username)
         ON DELETE CASCADE,
     CONSTRAINT fk_location
         FOREIGN KEY (location) 
-            REFERENCES users(location) 
+            REFERENCES Users(location) 
         ON DELETE NO ACTION
 );
 
-CREATE TABLE favorites (
-    username VARCHAR(28) NOT NULL,
-    id SERIAL ,
-    CONSTRAINT fk_username
-        FOREIGN KEY (username)
-            REFERENCES users(username),
-    CONSTRAINT fk_id
-        FOREIGN KEY (id)
-            REFERENCES listings(id)
+
+CREATE TABLE Sells (
+username VARCHAR(28) NOT NULL,
+lid SERIAL,
+since DATE NOT NULL,
+CONSTRAINT fk_lid
+    FOREIGN KEY (lid)
+        REFERENCES Listings(lid),
+CONSTRAINT fk_username
+    FOREIGN KEY (username)
+        REFERENCES Users(username)
 );
 
-CREATE TABLE follows (
+
+CREATE TABLE Favorites (
+    username VARCHAR(28) NOT NULL,
+    lid SERIAL,
+    CONSTRAINT fk_username
+        FOREIGN KEY (username)
+            REFERENCES Users(username),
+    CONSTRAINT fk_id
+        FOREIGN KEY (lid)
+            REFERENCES Listings(lid)
+);
+
+CREATE TABLE Follows (
     follower_username VARCHAR(28),
     followed_username VARCHAR(28),
     CONSTRAINT fk_follower_username
         FOREIGN KEY (follower_username)
-            REFERENCES users(username),
+            REFERENCES Users(username),
     CONSTRAINT fk_followed_username
         FOREIGN KEY (followed_username)
-            REFERENCES users(username)
+            REFERENCES Users(username)
 );
 
 -- dummy data
-INSERT INTO users VALUES (
+INSERT INTO Users VALUES (
     'username', 
-    11, 
     '$2b$10$m0YIOcDUylFimtsbGs11HuoErdxfD9eO6WA/pvOu6CfImUj/PqFmm', 
     'philphil', 
     'Hvidovrevej',
@@ -69,9 +82,8 @@ INSERT INTO users VALUES (
     Now(),
     'https://randomuser.me/api/portraits/women/87.jpg'
 );
-INSERT INTO users VALUES (
+INSERT INTO Users VALUES (
     'anotherUser', 
-    12, 
     '$2b$10$m0YIOcDUylFimtsbGs11HuoErdxfD9eO6WA/pvOu6CfImUj/PqFmm', 
     'hanzomain', 
     'Kokkedal',
@@ -79,7 +91,9 @@ INSERT INTO users VALUES (
     Now(),
     'https://randomuser.me/api/portraits/women/63.jpg'
 );
-INSERT INTO listings VALUES (
+
+
+INSERT INTO Listings VALUES (
     123,
     'Toy train', 
     'This is toy train very beautiful', 
@@ -91,7 +105,7 @@ INSERT INTO listings VALUES (
     'username', 
     'Hvidovrevej'
 );
-INSERT INTO listings VALUES (
+INSERT INTO Listings VALUES (
     344, 
     'Astronaut', 
     'Spaaaaace', 
@@ -104,7 +118,7 @@ INSERT INTO listings VALUES (
     'Hvidovrevej'
 );
 
-INSERT INTO listings VALUES (
+INSERT INTO Listings VALUES (
     333,
     'Western saloon',
     'Old western saloon in the old western. Up for sale because the sherif was shot. Get it for cheap',
@@ -117,25 +131,12 @@ INSERT INTO listings VALUES (
     'Kokkedal'
 );
 
-INSERT INTO listings VALUES (
-    696969,
-    'Kælder saloon',
-    'Old western saloon in the old western. Up for sale because the sherif was shot. Get it for cheap',
-    130000,
-    '{Building}',
-    '{https://upload.wikimedia.org/wikipedia/commons/f/f8/Judge_Roy_Bean.jpg?2=2000}',
-    false,
-    Now(),
-    'mahmut',
-    'Kokkedal'
-);
-
-INSERT INTO follows VALUES (
+INSERT INTO Follows VALUES (
     'anotherUser',
     'username'
 );
 
-INSERT INTO favorites VALUES (
+INSERT INTO Favorites VALUES (
     'anotherUser',
     123
 );
