@@ -1,22 +1,21 @@
 DROP TABLE IF EXISTS Sells;
-DROP TABLE IF EXISTS Favorites;
-DROP TABLE IF EXISTS Follows;
+DROP TABLE IF EXISTS Favors;
+DROP TABLE IF EXISTS Follower;
 DROP TABLE IF EXISTS Listings;
 DROP TABLE IF EXISTS Users;
 
-
 CREATE TABLE Users (
-    username VARCHAR(28) PRIMARY KEY,
+    username VARCHAR(28) ,
     passhash VARCHAR NOT NULL,
     fullname VARCHAR(100) NOT NULL,
     location VARCHAR(150) UNIQUE NOT NULL,
     bio VARCHAR(300),
-    Usersince DATE NOT NULL,
-    picture VARCHAR
+    picture VARCHAR,
+    PRIMARY KEY(username)
 );
 
 CREATE TABLE Listings (
-    lid SERIAL PRIMARY KEY,
+    lid SERIAL,
     title VARCHAR(100) NOT NULL,
     description VARCHAR(300),
     price INTEGER NOT NULL,
@@ -26,50 +25,36 @@ CREATE TABLE Listings (
     timelisted DATE NOT NULL,
     username VARCHAR(28) NOT NULL,
     location  VARCHAR(150),
-    CONSTRAINT fk_user
-        FOREIGN KEY (username) 
-            REFERENCES Users(username)
-        ON DELETE CASCADE,
-    CONSTRAINT fk_location
-        FOREIGN KEY (location) 
-            REFERENCES Users(location) 
-        ON DELETE NO ACTION
+    PRIMARY KEY (lid),
+    FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (location) REFERENCES Users(location)
 );
-
 
 CREATE TABLE Sells (
 username VARCHAR(28) NOT NULL,
 lid SERIAL,
 since DATE NOT NULL,
-CONSTRAINT fk_lid
-    FOREIGN KEY (lid)
-        REFERENCES Listings(lid),
-CONSTRAINT fk_username
-    FOREIGN KEY (username)
-        REFERENCES Users(username)
+PRIMARY KEY (username, lid),
+FOREIGN KEY (username) REFERENCES Users(username),
+FOREIGN KEY (lid) REFERENCES Listings(lid)
 );
 
-
-CREATE TABLE Favorites (
+CREATE TABLE Favors (
     username VARCHAR(28) NOT NULL,
     lid SERIAL,
-    CONSTRAINT fk_username
-        FOREIGN KEY (username)
-            REFERENCES Users(username),
-    CONSTRAINT fk_id
-        FOREIGN KEY (lid)
-            REFERENCES Listings(lid)
+    PRIMARY KEY (username, lid), 
+    FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (lid) REFERENCES Listings(lid)
 );
 
-CREATE TABLE Follows (
-    follower_username VARCHAR(28),
-    followed_username VARCHAR(28),
-    CONSTRAINT fk_follower_username
-        FOREIGN KEY (follower_username)
-            REFERENCES Users(username),
-    CONSTRAINT fk_followed_username
-        FOREIGN KEY (followed_username)
-            REFERENCES Users(username)
+/* TODO: LOOK AT SLIDES FOR TRIGGERS, SO THAT YOU CAN INCREASE UPON FOLLOW */
+CREATE TABLE Follower (
+    followerid SERIAL,
+    username1 VARCHAR(28),
+    username2 VARCHAR(28),
+    PRIMARY KEY (followerid),
+    FOREIGN KEY (username1) REFERENCES Users(username),
+    FOREIGN KEY (username2) REFERENCES Users(username)
 );
 
 -- dummy data
@@ -79,7 +64,6 @@ INSERT INTO Users VALUES (
     'philphil', 
     'Hvidovrevej',
     'This is bio',
-    Now(),
     'https://randomuser.me/api/portraits/women/87.jpg'
 );
 INSERT INTO Users VALUES (
@@ -88,7 +72,6 @@ INSERT INTO Users VALUES (
     'hanzomain', 
     'Kokkedal',
     'This is bio',
-    Now(),
     'https://randomuser.me/api/portraits/women/63.jpg'
 );
 
@@ -129,14 +112,4 @@ INSERT INTO Listings VALUES (
     Now(),
     'anotherUser',
     'Kokkedal'
-);
-
-INSERT INTO Follows VALUES (
-    'anotherUser',
-    'username'
-);
-
-INSERT INTO Favorites VALUES (
-    'anotherUser',
-    123
 );

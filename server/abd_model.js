@@ -3,9 +3,9 @@ const pool = require("./db");
 const registerUser = (body, passhash) => {
   return new Promise(function (resolve, reject) {
     console.log(body);
-    const { username, fullname, location, bio, usersince, picture } = body
-    pool.query("INSERT INTO Users(username, passhash, fullname, location, bio, usersince, picture) values($1,$2,$3,$4,$5,$6,$7) RETURNING id, username",
-      [username, passhash, fullname, location, bio,usersince, picture ], (error, results) => {
+    const { username, fullname, location, bio, picture } = body
+    pool.query("INSERT INTO Users(username, passhash, fullname, location, bio, picture) values($1,$2,$3,$4,$5,$6) RETURNING username",
+      [username, passhash, fullname, location, bio, picture], (error, results) => {
         if (error) {
           reject(error)
         } else {
@@ -17,10 +17,10 @@ const registerUser = (body, passhash) => {
 
 const updateUser = (body) => {
   return new Promise(function (resolve, reject) {
-    
-    const { username, fullname, location, bio  } = body
+
+    const { username, fullname, location, bio } = body
     console.log(body);
-    pool.query("UPDATE Users SET fullname=$2, location=$3, bio=$4 WHERE username=$1 RETURNING id, username",
+    pool.query("UPDATE Users SET fullname=$2, location=$3, bio=$4 WHERE username=$1 RETURNING username",
       [username, fullname, location, bio], (error, results) => {
         if (error) {
           reject(error)
@@ -43,11 +43,11 @@ const getListingItems = () => {
 }
 
 const getListingItemsById = (body) => {
-  
+
   return new Promise(function (resolve, reject) {
     const { itemId } = body
 
-    pool.query("SELECT * FROM Listings WHERE id=$1", [itemId], (error, results) => {
+    pool.query("SELECT * FROM Listings WHERE lid=$1", [itemId], (error, results) => {
       if (error) {
         reject(error)
       }
@@ -59,7 +59,7 @@ const getListingItemsById = (body) => {
 const getUserByUsername = (body) => {
   return new Promise(function (resolve, reject) {
     const { username } = body
-    pool.query( "SELECT * FROM Users u WHERE u.username=$1", [username], (error, results) => {
+    pool.query("SELECT * FROM Users u WHERE u.username=$1", [username], (error, results) => {
       if (error) {
         reject(error)
       }

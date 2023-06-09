@@ -25,7 +25,6 @@ router
             if (isSamePass) {
                 req.session.user = {
                     username: req.body.username,
-                    id: potentialLogin.rows[0].id,
                 };
                 res.json({ loggedIn: true, username: req.body.username });
             } else {
@@ -47,10 +46,10 @@ router.post("/signup", async (req, res) => {
         // register
         const hashedPass = await bcrypt.hash(req.body.password, 10);
 
-        const newUserQuery = await abd_model.registerUser(req.body, hashedPass);
+        await abd_model.registerUser(req.body, hashedPass);
+
         req.session.user = {
             username: req.body.username,
-            id: newUserQuery.rows[0].id,
         };
         res.json({ loggedIn: true, username: req.body.username });
     } else {

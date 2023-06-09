@@ -60,7 +60,6 @@ const SignUp = () => {
         fullname: "",
         location: "",
         bio: "",
-        usersince: new Date(),
         picture: generateRandomAvatar()
       }}
       validationSchema={Yup.object({
