@@ -7,11 +7,11 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from "./theme";
 
 
-
+// TODO: Check if theme is better than original
 function App() {
   return (
     <UserContext>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider>
         <div className="App">
           <Views />
         </div>

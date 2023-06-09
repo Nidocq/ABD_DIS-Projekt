@@ -12,10 +12,10 @@ const theme = {
         padding: 0,
       },
       html: {
-        height: "100%",
+        //height: "100%",
       },
       body: {
-        height: "100%",
+        //height: "100%",
         backgroundColor: "linen",
         fontFamily: "'Courier New', Courier, monospace",
       },

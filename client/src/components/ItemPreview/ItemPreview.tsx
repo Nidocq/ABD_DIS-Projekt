@@ -19,74 +19,40 @@ import {
   Button,
   Divider
 } from '@chakra-ui/react';
-import { ItemProps } from '../Item/Item';
 import _ from 'lodash';
 import { AddIcon } from '@chakra-ui/icons';
+import IUser from '../../interfaces/IUser';
+import IItem from '../../interfaces/IItem';
 
-interface userProps {
-  username: string,
-  id: number,
-  passhash: string,
-  fullname: string,
-  location: string,
-  bio: string,
-  userSince: Date,
-  picture: string
-}
-
-interface itemProps {
-  categories: string[],
-  description: string,
-  id: number,
-  img: string[],
-  location: string,
-  price: number,
-  title: string,
-  sold: boolean,
-  timeListed: Date,
-  username: string
-};
-
-const _itemOwner: userProps = {
+const _itemOwner: IUser = {
   username: '',
-  id: 0,
   passhash: '',
   fullname: '',
   location: '',
   bio: '',
-  userSince: new Date(),
   picture: ''
 };
 
-let _item: itemProps = {
+let _item: IItem = {
+  lid: 0,
   categories: [""],
   description: '',
-  id: 0,
   img: [""],
   location: '',
   price: 0,
   sold: false,
   timeListed: new Date(),
   title: '',
-  username: ''
-}
-
-let _user: userProps = {
   username: '',
-  id: 0,
-  passhash: '',
-  fullname: '',
-  location: '',
-  bio: '',
-  userSince: new Date(),
-  picture: ''
+  likes: 0,
+  isLiked: false
 }
 
 const ItemPreview = () => {
   const { user } = useContext<any>(AccountContext);
   const { itemId } = useParams();
-  const [item, setItem] = useState<itemProps>(_item);
-  const [itemOwner, setItemOwner] = useState<userProps>(_itemOwner);
+  const [item, setItem] = useState<IItem>(_item);
+  const [itemOwner, setItemOwner] = useState<IUser>(_itemOwner);
   const [itemLoaded, setItemLoaded] = useState(false);
 
 
@@ -131,7 +97,6 @@ const ItemPreview = () => {
       });
   }, [itemLoaded]);
 
-  console.log("date!!", itemOwner.userSince)
   return (
 
     item && itemOwner &&

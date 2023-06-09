@@ -1,24 +1,10 @@
 import React from "react";
 import './Item.css';
 import { useNavigate } from "react-router";
-
-export interface ItemProps {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    categories : [string];
-    img: string;
-    owner: string;
-    sold: boolean;
-    location: string;
-
-    likes: number;  // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
-    isLiked: boolean; // CHECK IF USER HAS LIKED THIS ITEM IN SQL
-}
+import IItem from '../../interfaces/IItem';
 
 
-function Item(props: ItemProps) {
+function Item(props: IItem) {
 
     const [isLiked, setIsLiked] = React.useState(props.isLiked);
     const navigate = useNavigate();
@@ -27,22 +13,22 @@ function Item(props: ItemProps) {
     }
     return (
         <div
-        onClick={() => navigate(`/item-preview/${props.id}`)}
+        onClick={() => navigate(`/item-preview/${props.lid}`)}
         className="item-container">
 
             <img
-                src={props.img}
+                src={props.img[0]}
                 className="item-image-big"
             />
             <div className="info-container">
                 <div className="prem-container">
                     <div className="image-title-container">
                         <img
-                            src={props.img}
+                            src={props.img[0]}
                             className="item-image-small"
                         />
                         <h5 className="item-title">{props.title}</h5>
-                        <p className="item-owner">by {props.owner}</p>
+                        <p className="item-owner">by {props.username}</p>
                     </div>
                         <div className="heart-container">
                             {

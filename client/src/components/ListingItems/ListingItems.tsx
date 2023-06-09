@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import Item, { ItemProps } from "../Item/Item";
+import Item from "../Item/Item";
 import { IconName } from "@fortawesome/free-solid-svg-icons";
 import './ListingItems.css';
 import { useNavigate } from "react-router";
 import { AccountContext } from "../AccountContext";
+import IItem from "../../interfaces/IItem";
 
 function ListingItems() {
     // TODO: This should be fetched from database
     const { user } = useContext<any>(AccountContext);
 
-    const [items, setItems] = React.useState([{
-        id: 0,
+    const [items, setItems] = React.useState<IItem[]>([{
+        lid: 0,
         title: '',
         description: '',
         price: 0,
@@ -18,7 +19,7 @@ function ListingItems() {
         img: [],
         username: '',
         sold: false,
-        time_listed: '',
+        timeListed: new Date(),
         location: '',
 
         likes: 0, // CHECK HOW MANY LIKES THIS ITEM HAS IN SQL
@@ -57,17 +58,18 @@ function ListingItems() {
             {items.map((item, index) => {
                 return <Item
                     key={index}
-                    id={item.id}
+                    lid={item.lid}
                     isLiked={item.isLiked}
                     likes={item.likes}
-                    img={item.img[0]}
+                    img={item.img}
                     title={item.title}
-                    categories={item.categories[0]}
-                    owner={item.username === user.username ? "You" : item.username }
+                    categories={item.categories}
+                    username={item.username === user.username ? "You" : item.username }
                     description={item.description}
                     sold={item.sold}
                     price={item.price}
                     location={item.location}
+                    timeListed={item.timeListed}
                 />
             })}
         </div>
