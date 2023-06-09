@@ -3,18 +3,29 @@ import {
   FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
-import { Field, useField } from "formik";
+import { Textarea } from '@chakra-ui/react'
+import { Input  } from "@chakra-ui/input";
+import { Field, useField  } from "formik";
 
-const TextField = ({ label, ...props }: any) => {
+export const TextField = ({ label, ...props }: any) => {
   const [field, meta] = useField(props);
   return (
      <FormControl isInvalid={Boolean(meta.touched && meta.error)}>
       <FormLabel>{label}</FormLabel>
-      <Input as={Field} {...field} {...props} />
+      <Input as={Field}  {...field} {...props} />
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl> 
   );
 };
 
-export default TextField;
+export const MultiTextField = ({ label, ...props }: any) => {
+  const [field, meta] = useField(props);
+  return (
+     <FormControl isInvalid={Boolean(meta.touched && meta.error)}>
+      <FormLabel>{label}</FormLabel>
+      <Textarea {...field} {...props} />
+      <FormErrorMessage>{meta.error}</FormErrorMessage>
+    </FormControl> 
+  );
+}
+

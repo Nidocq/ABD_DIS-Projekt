@@ -5,7 +5,7 @@ import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
-import TextField from "../Login/TextField";
+import {TextField} from "../Login/TextField";
 import * as Yup from "yup";
 
 const UserPage = () => {
@@ -19,11 +19,11 @@ const UserPage = () => {
       validationSchema={Yup.object({
         fullname: Yup.string()
           .required("fullname required!")
-          .min(6, "fullname too short!")
+          .min(2, "fullname too short!")
           .max(50, "fullname too long!"),
         location: Yup.string()
           .required("location required!")
-          .min(6, "location too short!")
+          .min(2, "location too short!")
           .max(200, "location too long!"),
         bio: Yup.string()
           .required("bio required!")

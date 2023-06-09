@@ -1,5 +1,5 @@
 import './ItemPreview.css'
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AccountContext } from "../AccountContext";
 import { useParams } from 'react-router';
 import {
@@ -19,34 +19,73 @@ import {
   Button,
   Divider
 } from '@chakra-ui/react';
+import { ItemProps } from '../Item/Item';
+import _ from 'lodash';
 
-const ItemPreview = () => {
-  const { user } = useContext<any>(AccountContext);
+interface userProps {
+  username: string,
+  id: number,
+  passhash: string,
+  fullname: string,
+  location: string,
+  bio: string,
+  userSince: Date,
+  picture: string
+}
 
-  const { itemId } = useParams();
-  const [ itemProps, setitemProps ] = useState({
-    categories: [],
-    description: '',
-    id: 0,
-    img: [''],
-    location: '',
-    price: 0,
-    sold: false,
-    time_listed: '',
-    title: '',
-    username: ''
-});
-const [ sellerUser, setsellerUser ] = useState({
+interface itemProps {
+  categories: string[],
+  description: string,
+  id: number,
+  img: string[],
+  location: string,
+  price: number,
+  title: string,
+  sold: boolean,
+  timeListed: Date,
+  username: string | userProps
+};
+
+const _itemOwner: userProps = {
   username: '',
-  id: 0, 
+  id: 0,
   passhash: '',
   fullname: '',
   location: '',
   bio: '',
-  user_since: '',
+  userSince: new Date(),
   picture: ''
-})
+};
 
+let _item: itemProps = {
+  categories: [""],
+  description: '',
+  id: 0,
+  img: [""],
+  location: '',
+  price: 0,
+  sold: false,
+  timeListed: new Date(),
+  title: '',
+  username: ''
+}
+
+let _user: userProps = {
+  username: '',
+  id: 0,
+  passhash: '',
+  fullname: '',
+  location: '',
+  bio: '',
+  userSince: new Date(),
+  picture: ''
+}
+
+const ItemPreview = () => {
+  const { user } = useContext<any>(AccountContext);
+  const { itemId } = useParams();
+  const [item, setItem] = useState<itemProps>(_item);
+  const [itemOwner, setItemOwner] = useState<userProps>(_itemOwner);
 
   // Fetch the item that was clicked on and save it to itemProps via useState
   useEffect(() => {
@@ -56,40 +95,37 @@ const [ sellerUser, setsellerUser ] = useState({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ itemId: itemId }),
-    })
-      .then(res => res.json())
+    }).then(res => res.json())
       .then(data => {
         if (!data) return;
-        // The [0] is there because we only want one object and we get that 
-        // from the item-preview fetch
-        setitemProps([...data][0]);
+        const item = data[0];
+        setItem(item);
+      })
+      .catch(error => {
+        console.error("Error fetching item:", error);
       });
-  }, [])
-
+  }, []);
 
   // Fetch the user who is selling the current item
   useEffect(() => {
+    if (_.isEqual(item, _item)) return; // Don't proceed if the item is not set yet
     fetch(`http://localhost:3001/auth/getuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // This will get the username of the seller 
-      // from the item that the user clicked on
-      body: JSON.stringify({ username: itemProps.username }),
+      body: JSON.stringify({ username: item.username }),
     })
       .then(res => res.json())
       .then(data => {
         if (!data) return;
-        // The [0] is there because we only want one object and we get that 
-        // from the item-preview fetch
-        setsellerUser([...data][0]);
+        console.log("some data of the user:", data)
+        setItemOwner(data);
+      })
+      .catch(error => {
+        console.error("Error fetching user data:", error);
       });
-  }, [])
-
-
-  console.log("Your profile is : ", user);
-  console.log("Profile selling item is : ", sellerUser);
+  }, [item]);
 
   return (
     <HStack
@@ -99,11 +135,11 @@ const [ sellerUser, setsellerUser ] = useState({
       h="100vh"
       spacing="1rem"
     >
-      <Text>{itemProps.time_listed}</Text>
+      <Text> date here:</Text>
       <Card maxW='500px'>
         <CardBody>
           <Image
-            src={itemProps.img[0]}
+            src={item.img[0]}
             maxW='500px'
           />
           <HStack>
@@ -115,12 +151,12 @@ const [ sellerUser, setsellerUser ] = useState({
             })} */}
           </HStack>
           <Stack mt='6' spacing='3'>
-            <Heading size='md'>{itemProps.title}</Heading>
+            <Heading size='md'>{item.title}</Heading>
             <Text>
-              {itemProps.description}
+              {item.description}
             </Text>
             <Text color='blue.600' fontSize='2xl'>
-              {itemProps.price},-
+              {item.price},-
             </Text>
           </Stack>
         </CardBody>
@@ -136,29 +172,29 @@ const [ sellerUser, setsellerUser ] = useState({
           </ButtonGroup>
         </CardFooter>
       </Card>
-          <VStack
-            w={{ base: "90%", md: "500px" }}
-            m="auto"
-            justify="center"
-            h="100vh"
-            spacing="1rem"
-          >
-          </VStack>
-          <VStack spacing='24px'>
-            <HStack >
-              <Box>
-                <Img
-                  boxSize='50px'
-                  // src={sellerUser.picture}
-                  borderRadius='40px'
-                  // alt={sellerUser.fullname}
-                />
-              </Box>
-              <Box >
-                {user.username}
-              </Box>
-            </HStack>
-          </VStack>
+      <VStack
+        w={{ base: "90%", md: "500px" }}
+        m="auto"
+        justify="center"
+        h="100vh"
+        spacing="1rem"
+      >
+      </VStack>
+      <VStack spacing='24px'>
+        <HStack >
+          <Box>
+            <Img
+              boxSize='50px'
+              src={itemOwner.picture}
+              borderRadius='40px'
+              alt={itemOwner.username}
+            />
+          </Box>
+          <Box >
+            {itemOwner.username}
+          </Box>
+        </HStack>
+      </VStack>
     </HStack>
   )
 }

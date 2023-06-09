@@ -16,7 +16,7 @@ router
     .post(async (req, res) => {
         validateForm(req, res);
 
-        const potentialLogin = await abd_model.getUser(req.body.username);
+        const potentialLogin = await abd_model.getUserByUsername(req.body);
         if (potentialLogin.rowCount > 0) {
             const isSamePass = await bcrypt.compare(
                 req.body.password,
@@ -30,10 +30,10 @@ router
                 res.json({ loggedIn: true, username: req.body.username });
             } else {
                 res.json({ loggedIn: false, status: "Wrong username or password!" });
-                console.log("not good");
+                console.log("Password does not match");
             }
         } else {
-            console.log("not good");
+            console.log("Username does not exist");
             res.json({ loggedIn: false, status: "Wrong username or password!" });
         }
     });
@@ -41,7 +41,7 @@ router
 router.post("/signup", async (req, res) => {
     validateForm(req, res);
 
-    const existingUser = await abd_model.getUser(req.body.username);
+    const existingUser = await abd_model.getUserByUsername(req.body.username);
 
     if (existingUser.rowCount === 0) {
         // register
@@ -83,7 +83,7 @@ router.post("/item-preview", async (req, res) => {
 
 router.post("/getuser", async (req, res) => {
     const getUser = await abd_model.getUserByUsername(req.body);
-    res.json(getUser.rows);
+    res.json(getUser.rows[0]);
 })    
 
 module.exports = router;

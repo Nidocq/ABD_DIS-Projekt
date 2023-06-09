@@ -1,24 +1,11 @@
 const pool = require("./db");
 
-const getUser = (username) => {
-  return new Promise(function (resolve, reject) {
-    pool.query( "SELECT id, username, passhash FROM users u WHERE u.username=$1", [username], (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(results);
-    })
-  })
-}
-
-
-
-
 const registerUser = (body, passhash) => {
   return new Promise(function (resolve, reject) {
-    const { username, fullname, location, bio  } = body
-    pool.query("INSERT INTO users(username, passhash, fullname, location, bio) values($1,$2,$3,$4,$5) RETURNING id, username",
-      [username, passhash, fullname, location, bio], (error, results) => {
+    console.log(body);
+    const { username, fullname, location, bio, usersince, picture } = body
+    pool.query("INSERT INTO users(username, passhash, fullname, location, bio, usersince, picture) values($1,$2,$3,$4,$5,$6,$7) RETURNING id, username",
+      [username, passhash, fullname, location, bio,usersince, picture ], (error, results) => {
         if (error) {
           reject(error)
         } else {
@@ -69,9 +56,10 @@ const getListingItemsById = (body) => {
   })
 }
 
-const getUserByUsername = (reqUsername) => {
+const getUserByUsername = (body) => {
   return new Promise(function (resolve, reject) {
-    pool.query( "SELECT * FROM users u WHERE u.username=$1", [reqUsername], (error, results) => {
+    const { username } = body
+    pool.query( "SELECT * FROM users u WHERE u.username=$1", [username], (error, results) => {
       if (error) {
         reject(error)
       }
@@ -82,7 +70,6 @@ const getUserByUsername = (reqUsername) => {
 
 module.exports = {
   registerUser,
-  getUser,
   updateUser,
   getListingItems,
   getListingItemsById,

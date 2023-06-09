@@ -11,7 +11,7 @@ CREATE TABLE users (
     fullname VARCHAR(100) NOT NULL,
     location VARCHAR(150) UNIQUE NOT NULL,
     bio VARCHAR(300),
-    user_since DATE NOT NULL,
+    usersince DATE NOT NULL,
     picture VARCHAR
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE listings (
     categories text[],
     img text[],
     sold BOOLEAN NOT NULL,
-    time_listed DATE NOT NULL,
+    timelisted DATE NOT NULL,
     username VARCHAR(28) NOT NULL,
     location  VARCHAR(150),
     CONSTRAINT fk_user
@@ -103,6 +103,7 @@ INSERT INTO listings VALUES (
     'username', 
     'Hvidovrevej'
 );
+
 INSERT INTO listings VALUES (
     333,
     'Western saloon',

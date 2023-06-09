@@ -1,19 +1,68 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { AccountContext } from "../AccountContext";
-import TextField from "./TextField";
+import { TextField, MultiTextField } from "./TextField";
+import { createAvatar } from '@dicebear/core';
+import { bottts, lorelei, pixelArt } from '@dicebear/collection';
+
 import * as Yup from "yup";
 
 const SignUp = () => {
   const { setUser } = useContext<any>(AccountContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const avatarArr: string[] = useMemo(() => {
+    const arr: string[]= [];
+
+    arr.push(createAvatar(pixelArt, {
+      size: 128,
+      // ... other options
+    }).toDataUriSync());
+
+    arr.push(createAvatar(lorelei, {
+      size: 128,
+      // ... other options
+    }).toDataUriSync());
+
+    arr.push(createAvatar(pixelArt, {
+      size: 128,
+      seed: "John"
+      // ... other options
+    }).toDataUriSync());
+
+    arr.push(createAvatar(pixelArt, {
+      size: 128,
+      seed: "Jane"
+      // ... other options
+    }).toDataUriSync());
+
+    arr.push(createAvatar(bottts, {
+      size: 128,
+      // ... other options
+    }).toDataUriSync());
+
+    return arr;
+  }, []);
+
+  const generateRandomAvatar = () => {
+    return avatarArr[Math.floor(Math.random() * avatarArr.length)];
+  }
+
   return (
     <Formik
-      initialValues={{ username: "", password: "", fullname: "", location: "", bio: "" }}
+      initialValues={{
+        username: "",
+        password: "",
+        fullname: "",
+        location: "",
+        bio: "",
+        usersince: new Date(),
+        picture: generateRandomAvatar()
+      }}
       validationSchema={Yup.object({
         username: Yup.string()
           .required("Username required!")
@@ -25,11 +74,11 @@ const SignUp = () => {
           .max(28, "Password too long!"),
         fullname: Yup.string()
           .required("fullname required!")
-          .min(6, "fullname too short!")
+          .min(2, "fullname too short!")
           .max(50, "fullname too long!"),
         location: Yup.string()
           .required("location required!")
-          .min(6, "location too short!")
+          .min(2, "location too short!")
           .max(200, "location too long!"),
         bio: Yup.string()
           .required("bio required!")
@@ -59,7 +108,7 @@ const SignUp = () => {
           .then(data => {
             if (!data) return;
             setUser({ ...data });
-            
+
             if (data.status) {
               setError(data.status);
             } else if (data.loggedIn) {
@@ -109,7 +158,7 @@ const SignUp = () => {
           autoComplete="off"
         />
 
-        <TextField
+        <MultiTextField
           name="bio"
           placeholder="Change Bio"
           autoComplete="off"
