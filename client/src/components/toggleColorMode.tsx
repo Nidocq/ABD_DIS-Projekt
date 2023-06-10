@@ -2,13 +2,13 @@ import { Button } from "@chakra-ui/button";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
+export enum colorTheme {
+  dark = "dark",
+  light = "light"
+}
+
 const ToggleColorMode = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-
-  enum colorTheme {
-    dark = "dark",
-    light = "light"
-  }
 
   // If userColorMode will be extended, this switch will make it easier to
   // extend the functionality
