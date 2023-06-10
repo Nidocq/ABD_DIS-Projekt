@@ -9,6 +9,10 @@ router
     .get(async (req, res) => {
         if (req.session.user && req.session.user.username) {
             res.json({ loggedIn: true, username: req.session.user.username });
+                res.json({
+                    loggedIn: true,
+                    username: req.session.user.username,
+                });
         } else {
             res.json({ loggedIn: false });
         }
@@ -26,7 +30,15 @@ router
                 req.session.user = {
                     username: req.body.username,
                 };
-                res.json({ loggedIn: true, username: req.body.username });
+                
+                res.json({
+                    loggedIn: true,
+                    username: req.body.username,
+                    fullname: potentialLogin.rows[0].fullname,
+                    location: potentialLogin.rows[0].location,
+                    bio: potentialLogin.rows[0].bio,
+                    picture: potentialLogin.rows[0].picture
+                });
             } else {
                 res.json({ loggedIn: false, status: "Wrong username or password!" });
                 console.log("Password does not match");
@@ -51,7 +63,14 @@ router.post("/signup", async (req, res) => {
         req.session.user = {
             username: req.body.username,
         };
-        res.json({ loggedIn: true, username: req.body.username });
+        res.json({
+            loggedIn: true,
+            username: req.body.username,
+            fullname: req.body.fullname,
+            location: req.body.location,
+            bio: req.body.bio,
+            picture: req.body.picture
+        });
     } else {
         res.json({ loggedIn: false, status: "Username taken" });
     }
@@ -60,7 +79,6 @@ router.post("/signup", async (req, res) => {
 router.post("/updateuser", async (req, res) => {
     const updateUserQuery = await abd_model.updateUser(req.body);
 
-    console.log("updated user query", updateUserQuery)
     res.json({
         loggedIn: true,
         fullname: req.body.fullname,
@@ -78,11 +96,11 @@ router.get("/listingitems", async (req, res) => {
 router.post("/item-preview", async (req, res) => {
     const listingItems = await abd_model.getListingItemsById(req.body);
     res.json(listingItems.rows);
-})    
+})
 
 router.post("/getuser", async (req, res) => {
     const getUser = await abd_model.getUserByUsername(req.body);
     res.json(getUser.rows[0]);
-})    
+})
 
 module.exports = router;

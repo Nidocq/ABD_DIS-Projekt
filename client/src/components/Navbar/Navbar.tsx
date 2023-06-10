@@ -6,16 +6,7 @@ import { useContext, useState } from 'react';
 import { AccountContext } from "../AccountContext";
 import ToggleColorMode from '../toggleColorMode';
 
-export interface NavbarItems {
-    displayText: string;
-    // TODO: This should idealy be Url type
-    src: string;
-}
-
-
 function Navbar() {
-    const { setUser } = useContext<any>(AccountContext);
-    const [error, setError] = useState(null);
     const navigate = useNavigate();
     return (
         <div className='wrapper'>
@@ -31,8 +22,8 @@ function Navbar() {
                     icon={icon({ name: 'user' })}
                     className='nav-bar-user-btn'
                 />
-                <ToggleColorMode />
             </a>
+            <ToggleColorMode />
         </div>);
 }
 

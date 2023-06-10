@@ -16,7 +16,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const avatarArr: string[] = useMemo(() => {
-    const arr: string[]= [];
+    const arr: string[] = [];
 
     arr.push(createAvatar(pixelArt, {
       size: 128,
@@ -107,7 +107,7 @@ const SignUp = () => {
           .then(data => {
             if (!data) return;
             setUser({ ...data });
-
+            console.log("signup res", data);
             if (data.status) {
               setError(data.status);
             } else if (data.loggedIn) {

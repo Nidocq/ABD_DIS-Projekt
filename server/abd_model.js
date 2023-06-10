@@ -8,7 +8,7 @@ const registerUser = (body, passhash) => {
 
 // TODO ADD QUERY TO INSERT INTO Uses_ABD TABLE WITH USERNAME AND DATE
 
-    pool.query("INSERT INTO Users(username, passhash, fullname, location, bio, picture) values($1,$2,$3,$4,$5,$6) RETURNING username",
+    pool.query("INSERT INTO Users(username, passhash, fullname, location, bio, picture) values($1,$2,$3,$4,$5,$6) RETURNING username, fullname, location, bio, picture",
       [username, passhash, fullname, location, bio, picture], (error, results) => {
         if (error) {
           reject(error)

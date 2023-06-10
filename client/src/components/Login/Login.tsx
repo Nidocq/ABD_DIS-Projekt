@@ -12,7 +12,14 @@ const Login = () => {
   const navigate = useNavigate();
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{
+        username: "",
+        password: "",
+        location: "",
+        bio: "",
+        fullname: "",
+        picture: ""
+      }}
       validationSchema={Yup.object({
         username: Yup.string()
           .required("Username required!")
@@ -46,6 +53,7 @@ const Login = () => {
           .then(data => {
             if (!data) return;
             setUser({ ...data });
+            console.log("res", data);
             if (data.status) {
               setError(data.status);
             } else if (data.loggedIn) {

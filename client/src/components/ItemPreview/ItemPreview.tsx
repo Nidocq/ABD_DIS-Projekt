@@ -88,7 +88,6 @@ const ItemPreview = () => {
       .then(res => res.json())
       .then(data => {
         if (!data) return;
-        console.log("some data of the user:", data);
         setItemOwner({ ...data });
       })
       .catch(error => {
@@ -136,7 +135,7 @@ const ItemPreview = () => {
         <CardFooter>
           <ButtonGroup spacing='2'>
          <Button colorScheme='blue'>Contact seller</Button> 
-         <Button colorScheme='red' > <AddIcon/> </Button> 
+         <Button colorScheme='green' > <AddIcon/> </Button> 
           </ButtonGroup>
         </CardFooter>
       </Card>
