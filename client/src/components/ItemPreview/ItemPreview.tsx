@@ -96,7 +96,6 @@ const ItemPreview = () => {
   }, [itemLoaded]);
 
   return (
-
     item && itemOwner &&
     <HStack
       w={{ base: "90%", md: "1000px" }}
@@ -105,13 +104,12 @@ const ItemPreview = () => {
       h="100vh"
       spacing="1rem"
     >
-      <Text>date: </Text>
       <Card >
         <CardBody>
           <Image
             src={item.img[0]}
             borderRadius='lg'
-
+            maxW={"500px"}
           />
           <HStack>
             {/* {itemProps.img.map(pic, index) => {
@@ -122,13 +120,38 @@ const ItemPreview = () => {
             })} */}
           </HStack>
           <Stack mt='6' spacing='3'>
-            <Heading size='md'>{item.title}</Heading>
+            <HStack justify={"space-between"}>
+              <Heading size='md'>{item.title}</Heading>
+                <VStack>
+              <HStack>
+          <Box>
+            <Img
+              boxSize='50px'
+              src={itemOwner.picture}
+              borderRadius='40px'
+              alt={itemOwner.username}
+            />
+          </Box>
+          <Box>
+            {user.username === itemOwner.username ? "You" : itemOwner.username}
+          </Box>
+              </HStack>
+          <Text>User since: </Text>
+          </VStack>
+            </HStack>
             <Text>
               {item.description}
             </Text>
             <Text color='blue.600' fontSize='2xl'>
               {item.price},-
             </Text>
+
+            <Text
+              textColor={'gray'}
+            >
+              Date listed: 
+            </Text>
+
           </Stack>
         </CardBody>
         <Divider />
@@ -148,19 +171,6 @@ const ItemPreview = () => {
       >
       </VStack>
       <VStack spacing='24px'>
-        <HStack >
-          <Box>
-            <Img
-              boxSize='50px'
-              src={itemOwner.picture}
-              borderRadius='40px'
-              alt={itemOwner.username}
-            />
-          </Box>
-          <Box>
-            {user.username === itemOwner.username ? "You" : itemOwner.username}
-          </Box>
-        </HStack>
       </VStack>
     </HStack>
   )

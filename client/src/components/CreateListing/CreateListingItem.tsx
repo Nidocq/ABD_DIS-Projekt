@@ -1,44 +1,99 @@
-import { Button } from '@chakra-ui/react'
+import {
+  HStack, VStack,
+  Box,
+  Input,
+  InputRightAddon,
+  InputRightElement,
+  InputLeftElement,
+  InputGroup,
+  Image,
+  Img,
+  Text,
+  Heading,
+  Stack,
+  Button,
+  Card,
+  CardBody,
+  Textarea,
+} from '@chakra-ui/react';
 import './CreateListingItem.css'
+import { useState } from 'react';
+import IItem from '../../interfaces/IItem';
+import { TextField } from "../Login/TextField";
+import { Formik } from 'formik';
+import * as Yup from "yup";
+
 
 const CreateListingItem = () => {
+
   return (
-    <>
+    <Formik
+    initialValues={{
+      title: "",
+      desc: ""
+    }}
+    validationSchema={Yup.object({
+      title: Yup.string()
+        .required("Title must have at least 3 characters")
+        .min(3, "Title is too short")
+        .max(28, "Title is too long"),
+      desc: Yup.string()
+        .required("Max characters for description is 300 characters")
+        // Doens't require min since it can be NULL in the database
+        .max(300, "Max characters for description is 300 characters")
+    })}
+    onSubmit={(values, actions) => {
+      const vals = { ...values };
+      actions.resetForm();
+      fetch("http://localhost:3001/auth/login", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(vals),
+        })
+    }}
+    >
       <div className="ListingWrapper">
-        <h1>Create Listing</h1>
-        <img className="listingImg" src="."/>
-        <h2>Name</h2>
-        <input />
-        <h2>Description</h2>
-        <input />
+        <Heading>Create Listing</Heading>
+        <TextField
+          name="title"
+          placeholder="Title"
+          autoComplete="off"
+          label="Title"
+        />
+        <Text mb='8px'>Add a Description</Text>
+        <TextField
+          name="desc"
+          placeholder="Description"
+          autoComplete="off"
+          label="Desc"
+        />
+        <InputGroup size='sm'>
+          <Input
+            placeholder='Price'
+            htmlSize={4}
+            width='auto'
+          />
+          <InputLeftElement
+            pointerEvents='none'
+            color='gray.300'
+            fontSize='1.2em'
+            children='$'
+          />
+        </InputGroup>
+        <Input placeholder='Categories (Seperated with "," [commas])' />
+        <Input placeholder='Image' />
 
-        <h2>Collection/Category</h2>
-        <input /> {/* This should be prechosen like a drop down */}
-
-
-        <h2>Properties</h2>
-        <input />
-        {/* how damaged is the item
-            Which brand is it from?
-             */}
-
-        <h2>Location</h2>
-        <p>Chose a location </p>
-        <input />
-        <p>Item can be sent to buyer</p>
-        <input type="radio"/>
-        <p>Should be picked up</p>
-        <input type="radio"/>
-
-        <br/>
-        <Button 
+        <Button
           className="btnSaveListing"
           onClick={() => alert("Saved data")}
           type="submit">
           <b>Create Listing</b>
         </Button>
       </div>
-    </>
+    </Formik>
   )
 }
 
