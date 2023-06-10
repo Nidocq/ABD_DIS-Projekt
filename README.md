@@ -39,6 +39,16 @@ Be sure to run SQL file in the server to create the instances of the tables so i
 :page_facing_up: [React (Front end)]() \
 :page_facing_up: [NodeJS (Server)]()
 
+
+#### Known issues
+- When refreshing the browser, the user is logged out
+- The category buttons are not actually quering any items 
+- Styling issues.
+
+
+# DISCLAIMER!
+- Don't post any real names, password, or other sensitive data as this website is vulnearable. \
+This of course only applies if this project is launched on a server.
 # E/R Diagram
 ```mermaid
 ---
