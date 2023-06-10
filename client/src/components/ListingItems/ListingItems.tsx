@@ -18,6 +18,7 @@ function ListingItems() {
         categories: [],
         img: [],
         username: '',
+        sellerPicture:'',
         sold: false,
         location: '',
 
@@ -44,7 +45,7 @@ function ListingItems() {
             })
             .then(data => {
                 if (!data) return;
-                console.log(data)
+                console.log("itemssss:", data)
                 setItems([...data]);
                 if (data.status) {
                     setError(data.status);
@@ -61,6 +62,7 @@ function ListingItems() {
                     isLiked={item.isLiked}
                     likes={item.likes}
                     img={item.img}
+                    sellerPicture={item.sellerPicture}
                     title={item.title}
                     categories={item.categories}
                     username={item.username === user.username ? "You" : item.username }

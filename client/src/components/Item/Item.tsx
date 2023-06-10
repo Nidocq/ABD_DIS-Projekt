@@ -24,7 +24,7 @@ function Item(props: IItem) {
                 <div className="prem-container">
                     <div className="image-title-container">
                         <img
-                            src={props.img[0]}
+                            src={props.sellerPicture}
                             className="item-image-small"
                         />
                         <h5 className="item-title">{props.title}</h5>

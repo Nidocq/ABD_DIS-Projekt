@@ -9,10 +9,10 @@ router
     .get(async (req, res) => {
         if (req.session.user && req.session.user.username) {
             res.json({ loggedIn: true, username: req.session.user.username });
-                res.json({
-                    loggedIn: true,
-                    username: req.session.user.username,
-                });
+            res.json({
+                loggedIn: true,
+                username: req.session.user.username,
+            });
         } else {
             res.json({ loggedIn: false });
         }
@@ -30,7 +30,7 @@ router
                 req.session.user = {
                     username: req.body.username,
                 };
-                
+
                 res.json({
                     loggedIn: true,
                     username: req.body.username,
@@ -87,11 +87,25 @@ router.post("/updateuser", async (req, res) => {
     });
 });
 
+
+
+
 router.get("/listingitems", async (req, res) => {
     const listingItems = await abd_model.getListingItems();
-    res.json(listingItems.rows);
 
+    const newListingItems = await Promise.all(
+      listingItems.rows.map(async (item) => {
+        const sellerUser = await abd_model.getUserByUsername({ username: item.username });
+        item.sellerPicture = sellerUser.rows[0].picture;
+        return item;
+      })
+    );
+  
+    res.json(newListingItems);
 })
+
+
+
 
 router.post("/item-preview", async (req, res) => {
     const listingItems = await abd_model.getListingItemsById(req.body);

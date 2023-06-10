@@ -1,4 +1,4 @@
-export default interface Item {
+export default interface IItem {
   lid: number,
   title: string,
   description: string,
@@ -8,6 +8,7 @@ export default interface Item {
   sold: boolean,
   username: string
   location: string,
+  sellerPicture: string,
 
   likes: number,
   isLiked: boolean,

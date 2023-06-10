@@ -41,6 +41,7 @@ let _item: IItem = {
   location: '',
   price: 0,
   sold: false,
+  sellerPicture: '',
   title: '',
   username: '',
   likes: 0,
