@@ -51,7 +51,6 @@ const UserPage = () => {
           })
           .then(data => {
             if (!data) return;
-            console.log("data", data);
           });
       }}
     >

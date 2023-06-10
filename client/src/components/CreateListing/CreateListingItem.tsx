@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react'
-import './CreateListing.css'
+import './CreateListingItem.css'
 
-const CreateListing = () => {
+const CreateListingItem = () => {
   return (
     <>
       <div className="ListingWrapper">
@@ -42,4 +42,4 @@ const CreateListing = () => {
   )
 }
 
-export default CreateListing
+export default CreateListingItem

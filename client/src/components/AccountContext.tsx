@@ -28,7 +28,7 @@ const UserContext = ({ children }: any) => {
           return;
         }
         setUser({ ...data });
-/*         navigate("/home"); */
+        navigate("/home");
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import Login from './components/Login/Login';
 import SignUp from './components/Login/SignUp';
-import CreateListing from './components/CreateListing/CreateListing';
 import UserPage from './components/UserPage/UserPage';
 import ItemPreview from './components/ItemPreview/ItemPreview';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import PrivateRoutes from './components/PrivateRoutes';
 import Navbar from './components/Navbar/Navbar';
+import CreateListingItem from './components/CreateListing/CreateListingItem';
 function Views(props: any) {
     return (
         <>
@@ -20,7 +20,7 @@ function Views(props: any) {
 
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" element={<HomeScreen />} />
-                    <Route path="/createlisting" element={<CreateListing />} />
+                    <Route path="/createlistingitem" element={<CreateListingItem />} />
                     <Route path="/updateuser" element={<UserPage />} />
                     <Route path="/item-preview/:itemId" element={<ItemPreview />} />
                 </Route>
