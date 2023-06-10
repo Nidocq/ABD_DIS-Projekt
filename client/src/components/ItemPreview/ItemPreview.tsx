@@ -109,7 +109,7 @@ const ItemPreview = () => {
           <Image
             src={item.img[0]}
             borderRadius='lg'
-            maxW={"500px"}
+            maxHeight={"350px"}
           />
           <HStack>
             {/* {itemProps.img.map(pic, index) => {
