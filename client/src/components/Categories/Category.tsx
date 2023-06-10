@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { CategoryLink } from './CategoryLink';
+import { ColorMode, color, useColorMode } from '@chakra-ui/react';
 import './Category.css';
+import { colorTheme } from '../toggleColorMode';
+
 
 const getCategorySuggestions = async (text: string) : Promise<void> => {
 }
+
 
 const getItems = () => {
     fetch('http://localhost:3001')
@@ -41,6 +45,9 @@ const handlePostOnClick = () => {
 
 export interface CategoriesItem  {
     TextDisplay: string;
+    // this is the strings you want to append to the selected link div element,
+    // when it is pressed, segregating the css components it has.
+    propertyFlags: string[];
 }
 
 interface CategoryProps {
@@ -49,15 +56,30 @@ interface CategoryProps {
 }
 
 function Category() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoriesItem>({ TextDisplay: "All" });
+  const [selectedCategory, setSelectedCategory] = useState<CategoriesItem>({ TextDisplay: "All", propertyFlags: [] });
   const [categories, setCategories] = useState<CategoriesItem[]>([]);
   useEffect(() => { 
     setCategories([ 
-     { TextDisplay: "All" }, 
-    { TextDisplay: "Art" },
-     { TextDisplay: "Photography" },
-     { TextDisplay: "Music" }, 
-    { TextDisplay: "Sport" } ])
+      { 
+        TextDisplay: "All",
+        propertyFlags: ["selected"]
+      }, 
+      { 
+        TextDisplay: "Art",
+        propertyFlags: ["selected"]
+      },
+      { 
+        TextDisplay: "Photography",
+        propertyFlags: ["selected"]
+      },
+      { 
+        TextDisplay: "Music",
+        propertyFlags: ["selected"]
+      }, 
+      { TextDisplay: "Sport",
+      propertyFlags: ["selected"]
+      }
+    ])
  },[])
 
   const handleOnCategoryClick = (category: CategoriesItem) => {
@@ -65,7 +87,7 @@ function Category() {
   }
 
     return (
-         <div className="category-container">
+         <div className="category-container" >
             <CategoryLink 
                 categories={categories}
                 handleOnCategoryClick={(category) => handleOnCategoryClick(category)}
