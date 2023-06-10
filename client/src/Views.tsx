@@ -6,7 +6,7 @@ import ItemPreview from './components/ItemPreview/ItemPreview';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import PrivateRoutes from './components/PrivateRoutes';
 import Navbar from './components/Navbar/Navbar';
-import CreateListingItem from './components/CreateListing/CreateListingItem';
+import CreateListingItem from './components/CreateListingItem/CreateListingItem';
 function Views(props: any) {
     return (
         <>
