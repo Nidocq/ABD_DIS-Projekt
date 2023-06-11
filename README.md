@@ -1,5 +1,8 @@
 ## ABD - a dba clone
-Last Project from the DIS course at KU datalogi developed by Mahmood Seoud (tbc115@alumni.ku.dk) and Phillip Lundin (kxg220@alumni.ku.dk). The project is a clone from the popular second hand platform https://www.dba.dk called ABD.
+Last Project from the DIS course at KU datalogi developed by Mahmood Seoud (tbc115@alumni.ku.dk) and Phillip Lundin (kxg220@alumni.ku.dk). The project is a clone from the popular second hand platform https://www.dba.dk called ABD. \
+The quries used in this project can be found in [the abd_model.js file](https://github.com/Nidocq/ABD_DIS-Projekt/blob/main/server/abd_model.js) under ./server/abd_model.js
+
+
 
 ## KU Tags
 Phillip Lundin [kxg220]
