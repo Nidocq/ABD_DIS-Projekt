@@ -33,6 +33,7 @@ import { Formik } from 'formik';
 import * as Yup from "yup";
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router';
+import { DropdownCategories } from '../Categories/Category';
 
 const CreateListingItem = () => {
   const [pictureURL, setPictureURL] = useState<string>("https://cdn-icons-png.flaticon.com/512/2651/2651001.png");
@@ -50,7 +51,7 @@ const CreateListingItem = () => {
       initialValues={{
         title: "",
         desc: "",
-        imageURL:"" 
+        imageURL: ""
       }}
       validationSchema={Yup.object({
         title: Yup.string()
@@ -117,9 +118,8 @@ const CreateListingItem = () => {
                     </NumberInput>
 
                   </InputGroup>
-                  <Input placeholder='Categories (Seperated with "," [commas])' />
 
-                  <TextField 
+                  <TextField
                     name="imageURL"
                     value={pictureURL}
                     onChange={processPicture}
@@ -127,6 +127,12 @@ const CreateListingItem = () => {
                   />
 
 
+              <MultiTextField
+                name="desc"
+                placeholder="Description"
+                autoComplete="off"
+                label="Description"
+              />
                 </VStack>
                 <Image
                   src={pictureURL}
@@ -137,12 +143,9 @@ const CreateListingItem = () => {
               </HStack>
             </CardBody>
             <CardFooter>
-              <MultiTextField
-                name="desc"
-                placeholder="Description"
-                autoComplete="off"
-                label="Description"
-              />
+                  <InputGroup size='md'>
+                    <DropdownCategories />
+                  </InputGroup>
             </CardFooter>
           </Card>
 
