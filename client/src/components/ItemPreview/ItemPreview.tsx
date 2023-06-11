@@ -1,7 +1,7 @@
 import './ItemPreview.css'
 import React, { useContext, useEffect, useState } from "react";
 import { AccountContext } from "../AccountContext";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   HStack, VStack,
   Box,
@@ -55,7 +55,9 @@ const ItemPreview = () => {
   const [itemOwner, setItemOwner] = useState<IUser>(_itemOwner);
   const [itemLoaded, setItemLoaded] = useState(false);
 
+  const navigate = useNavigate();
 
+  const sameUserAndSeller : Boolean = user.username === itemOwner.username;
   // Fetch the item that was clicked on and save it to itemProps via useState
   useEffect(() => {
     fetch(`http://localhost:3001/auth/item-preview`, {
@@ -112,14 +114,6 @@ const ItemPreview = () => {
             borderRadius='lg'
             maxHeight={"350px"}
           />
-          <HStack>
-            {/* {itemProps.img.map(pic, index) => {
-              return <Image
-                      src={pic}
-                      maxW='100px'
-                     />
-            })} */}
-          </HStack>
           <Stack mt='6' spacing='3'>
             <HStack justify={"space-between"}>
               <Heading size='md'>{item.title}</Heading>
@@ -134,7 +128,7 @@ const ItemPreview = () => {
             />
           </Box>
           <Box>
-            {user.username === itemOwner.username ? "You" : itemOwner.username}
+            {sameUserAndSeller ? "You" : itemOwner.username}
           </Box>
               </HStack>
           <Text>User since: </Text>
@@ -160,6 +154,15 @@ const ItemPreview = () => {
           <ButtonGroup spacing='2'>
          <Button colorScheme='blue'>Contact seller</Button> 
          <Button colorScheme='green' > <AddIcon/> </Button> 
+         {
+          sameUserAndSeller 
+            ? <Button 
+                colorScheme='blue' 
+                onClick={() => navigate("/updatelisting/" + itemId)}>
+              Edit
+              </Button> 
+            : <></>
+          }
           </ButtonGroup>
         </CardFooter>
       </Card>
