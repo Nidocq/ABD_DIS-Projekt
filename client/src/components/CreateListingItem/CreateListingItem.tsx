@@ -27,22 +27,33 @@ import {
   FormLabel,
 } from '@chakra-ui/react';
 import './CreateListingItem.css'
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { MultiTextField, TextField, DropdownCategories } from "../Login/TextField";
 import { Form, Formik } from 'formik';
 import * as Yup from "yup";
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router';
+import { AccountContext } from '../AccountContext';
 
 const CreateListingItem = () => {
-  const [pictureURL, setPictureURL] = useState<string>("https://cdn-icons-png.flaticon.com/512/2651/2651001.png");
-  const [value, setValue] = useState('1.53')
+  // const [pictureURL, setPictureURL] = useState<string>("https://cdn-icons-png.flaticon.com/512/2651/2651001.png");
+  const [value, setValue] = useState<number>();
   const [error, setError] = useState(null);
-  const [menuOption, setMenuOption] = useState<string>("");
+  const [menuOption, setMenuOption] = useState<string>();
+  const [imgArr, setImgArr] = useState<string[]>([]);
+
+  const { user } = useContext<any>(AccountContext);
+
+
+// newState Arr some gemmer whatever TextField. BY DEFAULT denne state array det initial
 
   const processPicture = (event: ChangeEvent<HTMLInputElement>) => {
-    setPictureURL(event.target.value);
+    console.log(event.target.value);
+    const house = event.target.value;
+    console.log("Setting imgArr to : ", house);
+    setImgArr([house]); // Set the image URL as a single-element array
   };
+
   const navigate = useNavigate();
 
   return (
@@ -50,9 +61,11 @@ const CreateListingItem = () => {
       initialValues={{
         title: "",
         description: "",
-        img: pictureURL,
+        img: [""],
         price: value,
-        categories: [""]
+        category: "",
+        location: user.location,
+        username: user.username
       }}
       validationSchema={Yup.object({
         title: Yup.string()
@@ -64,26 +77,47 @@ const CreateListingItem = () => {
           .max(300, "Max characters for description is 300 characters"),
         price: Yup.number()
           .required("Price is required"),
-        img: Yup.string()
-          .required("Image url is required")
-          .url("Image url must be a valid url"),
-        categories: Yup.array()
+        // img: Yup.string()
+        //   .required("Image url is required"),
+        category: Yup.string()
           .required("Category is required")
       })}
       onSubmit={(values, actions) => {
         const vals = { ...values };
-        console.log(vals)
+        console.log("Sending forms with data : ", vals);
         actions.resetForm();
-      }}
-    /*         fetch("http://localhost:3001/auth/createlisting", {
+             fetch("http://localhost:3001/auth/createlistingitem", {
               method: "POST",
               credentials: "include",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(vals),
-            })
-          }} */
+              body: JSON.stringify({
+                title: vals.title,
+                description: vals.description,
+                img: [vals.img],
+                price: vals.price,
+                category: vals.category,
+                location: vals.location,
+                username: vals.username
+              }),
+            }).catch(e => {
+                console.error(e);
+                return;
+              })
+              .then(res => {
+                if (!res || !res.ok || res.status >= 400) {
+                  return;
+                }
+                return res.json();
+              })
+              .then(data => {
+                if (!data) return;
+                console.log("res", data);
+                navigate("/item-preview/"+data.lid); 
+              });
+
+      }}
     >
         <VStack
           as={Form}
@@ -108,26 +142,19 @@ const CreateListingItem = () => {
                   />
 
                    <InputGroup size='md'>
-                    <NumberInput
-                      onChange={(valueString) => setValue((valueString))}
-                      value={value}
-                      min={0}
-                      name='price'
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-
+                    <TextField
+                      type="number"
+                      name="price"
+                      placeholder="Price"
+                      autoComplete="off"
+                      label="Price"
+                    />
                   </InputGroup>
 
                   <TextField
                     name="img"
-                    value={pictureURL}
-                    onChange={processPicture}
                     label="Paste Image URL here"
+                    autoComplete="off"
                   />
 
                   <MultiTextField
@@ -139,12 +166,6 @@ const CreateListingItem = () => {
 
                 </VStack>
 
-                <Image
-                  src={pictureURL}
-                  w={{ md: "350px" }}
-                  borderRadius='lg'
-                  maxHeight={"350px"}
-                />
 
               </HStack>
             </CardBody>

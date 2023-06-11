@@ -31,7 +31,11 @@ const UserPage = () => {
   return (
     <>
       <Formik
-        initialValues={{ fullname: user.fullname, location: user.location, bio: user.bio }}
+        initialValues={{ 
+          fullname: user.fullname,
+           location: user.location,
+            bio: user.bio 
+          }}
         validationSchema={Yup.object({
           fullname: Yup.string()
             .required("fullname required!")
@@ -115,7 +119,6 @@ const UserPage = () => {
               <CardFooter
                 display="flex"
                 justifyContent="center"
-
               >
                 <Img
                   src={user.picture}

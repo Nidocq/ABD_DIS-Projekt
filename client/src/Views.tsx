@@ -24,7 +24,7 @@ function Views(props: any) {
                     <Route path="/updateuser" element={<UserPage />} />
                     <Route path="/createlistingitem" element={<CreateListingItem />} />
                     <Route path="/item-preview/:itemId" element={<ItemPreview />} />
-                    <Route path="/updatelisting/:itemId" element={<UpdateListingItem />} />
+                    <Route path="/updatelistingitem/:itemId" element={<UpdateListingItem />} />
                 </Route>
             </Routes>
         </>

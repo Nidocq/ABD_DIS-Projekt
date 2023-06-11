@@ -35,7 +35,7 @@ const _itemOwner: IUser = {
 
 let _item: IItem = {
   lid: 0,
-  categories: [""],
+  categories: "",
   description: '',
   img: [""],
   location: '',
@@ -158,7 +158,7 @@ const ItemPreview = () => {
           sameUserAndSeller 
             ? <Button 
                 colorScheme='blue' 
-                onClick={() => navigate("/updatelisting/" + itemId)}>
+                onClick={() => navigate("/updatelistingitem/" + itemId)}>
               Edit
               </Button> 
             : <></>

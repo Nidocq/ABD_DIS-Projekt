@@ -76,9 +76,6 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-/* router.post("/createlistingitem", async (req, res) => {    */
-    
-    
 
 router.post("/updateuser", async (req, res) => {
     const updateUserQuery = await abd_model.updateUser(req.body);
@@ -113,6 +110,17 @@ router.post("/item-preview", async (req, res) => {
 router.post("/getuser", async (req, res) => {
     const getUser = await abd_model.getUserByUsername(req.body);
     res.json(getUser.rows[0]);
-})
+});
+
+router.post("/createlistingitem", async (req, res) => {
+    
+    const items = await abd_model.createListItem(req.body);
+    res.json(items.rows[0]);
+});
+
+router.post("/updatelistingitem", async (req, res) => {
+    const items = await abd_model.updateListItem(req.body);
+    res.json(items.rows[0]);
+});
 
 module.exports = router;

@@ -39,11 +39,16 @@ Be sure to run SQL file in the server to create the instances of the tables so i
 :page_facing_up: [React (Front end)]() \
 :page_facing_up: [NodeJS (Server)]()
 
+#### How to use the platform
+Since this is a clone of DBA. You are of course able to list your items for sale 
+- Create li
 
-#### Known issues
+#### Known issues and shortcomings
 - When refreshing the browser, the user is logged out
 - The category buttons are not actually quering any items 
 - Styling issues.
+- The picture in create listing will not appear until you have created the actual listing
+- We wanted to emphasize the implementations of the `Uses_ABD`entity in in a correct manner instead of having the functionality of the website. Therefore the since attribute is currently NULL. This applies for the `Sells` table as well.
 
 
 # DISCLAIMER!
@@ -55,11 +60,11 @@ This of course only applies if this project is launched on a server.
 title: ABD ER Diagram
 ---
 erDiagram
-	listings {
+	Listings {
 		int id PK
 		string title
 		string description
-		string[] category
+		string category
 		string material
 		string[] pictures
 		int price
@@ -67,23 +72,28 @@ erDiagram
 		string username FK
 		string location FK
 	}
-	users {
+	Users {
 		string username PK
 		string fullname 
 		string passhash
-		date user_since
-		string locat
+		string location
 		string picture
         string bio
 	}
 
-	RELATION_follows {
-		int follower_username FK
-		int followed_username FK
+	RELATION_Uses_ABD {
+		string username FK
+		date
 	}
 
-	RELATION_favorites {
-		int username FK
+	RELATION_Follower {
+		int followerid PK
+		int username1 FK
+		int username2 FK
+	}
+
+	RELATION_Favors {
+		string username FK
 		int id FK
 	}
 
