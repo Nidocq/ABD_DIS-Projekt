@@ -28,17 +28,18 @@ import {
 } from '@chakra-ui/react';
 import './CreateListingItem.css'
 import { ChangeEvent, useState } from 'react';
-import { MultiTextField, TextField } from "../Login/TextField";
+import { MultiTextField, TextField, DropdownCategories } from "../Login/TextField";
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router';
-import { DropdownCategories } from '../Categories/Category';
 
 const CreateListingItem = () => {
   const [pictureURL, setPictureURL] = useState<string>("https://cdn-icons-png.flaticon.com/512/2651/2651001.png");
   const [value, setValue] = useState('1.53')
   const [error, setError] = useState(null);
+  const [menuOption, setMenuOption] = useState<string>("");
+
   const processPicture = (event: ChangeEvent<HTMLInputElement>) => {
     setPictureURL(event.target.value);
   };
@@ -50,8 +51,10 @@ const CreateListingItem = () => {
     <Formik
       initialValues={{
         title: "",
-        desc: "",
-        imageURL: ""
+        description: "",
+        img: [""],
+        price: 0,
+        categories: ""
       }}
       validationSchema={Yup.object({
         title: Yup.string()
@@ -62,16 +65,19 @@ const CreateListingItem = () => {
           .required("Max characters for description is 300 characters")
           // Doens't require min since it can be NULL in the database
           .max(300, "Max characters for description is 300 characters"),
-
-        imageurl: Yup.string()
+        img: Yup.string()
           .required("Image url is required")
-          .url("Image url must be a valid url")
-
+          .url("Image url must be a valid url"),
+        categories: Yup.string()
+          .required("Category is required")
       })}
       onSubmit={(values, actions) => {
+        debugger;
         const vals = { ...values };
+        console.log(vals)
         actions.resetForm();
-        fetch("http://localhost:3001/auth/login", {
+      }}
+/*         fetch("http://localhost:3001/auth/createlisting", {
           method: "POST",
           credentials: "include",
           headers: {
@@ -79,7 +85,7 @@ const CreateListingItem = () => {
           },
           body: JSON.stringify(vals),
         })
-      }}
+      }} */
     >
       <div className="ListingWrapper">
         <VStack
@@ -120,44 +126,47 @@ const CreateListingItem = () => {
                   </InputGroup>
 
                   <TextField
-                    name="imageURL"
+                    name="image"
                     value={pictureURL}
                     onChange={processPicture}
                     label="Paste Image URL here"
                   />
 
+                  <MultiTextField
+                    name="description"
+                    placeholder="Description"
+                    autoComplete="off"
+                    label="Description"
+                  />
 
-              <MultiTextField
-                name="desc"
-                placeholder="Description"
-                autoComplete="off"
-                label="Description"
-              />
                 </VStack>
+
                 <Image
                   src={pictureURL}
                   w={{ md: "350px" }}
                   borderRadius='lg'
                   maxHeight={"350px"}
                 />
+
               </HStack>
             </CardBody>
             <CardFooter>
-                  <InputGroup size='md'>
-                    <DropdownCategories />
-                  </InputGroup>
+              <InputGroup size='md'>
+                <DropdownCategories
+                  name="category"
+                  autoComplete="off"
+                  label="Category"
+                  setMenuOption={(arg: any) => setMenuOption(arg)}
+                />
+              </InputGroup>
             </CardFooter>
           </Card>
 
           <ButtonGroup pt="1rem">
-
-            <Button
-              className="btnSaveListing"
-              onClick={() => alert("Saved data")}
-              type="submit">
-              <b>Create Listing</b>
+            <Button colorScheme="teal" type="submit">
+              Create Listing
             </Button>
-            <Button onClick={() => navigate("/")} leftIcon={<ArrowBackIcon />}>
+            <Button onClick={() => navigate("/home")} leftIcon={<ArrowBackIcon />}>
               Back
             </Button>
           </ButtonGroup>

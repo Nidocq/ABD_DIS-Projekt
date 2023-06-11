@@ -1,48 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CategoryLink } from './CategoryLink';
-import { Button, ColorMode, Menu, MenuButton, MenuDivider, MenuItem, MenuItemOption, MenuList, MenuOptionGroup, color, useColorMode } from '@chakra-ui/react';
 import './Category.css';
-import { colorTheme } from '../toggleColorMode';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-
-
-const getCategorySuggestions = async (text: string): Promise<void> => {
-}
-
-
-const getItems = () => {
-  fetch('http://localhost:3001')
-    .then(response => response.json())
-    .then(data => console.log(data));
-}
-
-function createItem() {
-  let name = prompt('Enter merchant name');
-  let email = prompt('Enter merchant email');
-  fetch('http://localhost:3001/item', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email }),
-  })
-    .then(response => {
-      return response.text();
-    })
-    .then(data => {
-      alert(data);
-      //getItems();
-    });
-}
-
-const handleGetOnClick = () => {
-  getItems();
-}
-
-const handlePostOnClick = () => {
-  createItem();
-}
-
 
 export interface CategoriesItem {
   TextDisplay: string;
@@ -97,34 +55,6 @@ function Category() {
       />
     </div>
   )
-}
-
-
-export const DropdownCategories = () => {
-
-  return (
-    <Menu>
-      <MenuButton
-        px={4}
-        py={2}
-        transition='all 0.2s'
-        borderRadius='md'
-        borderWidth='1px'
-        _hover={{ bg: 'gray.400' }}
-        _expanded={{ bg: 'blue.400' }}
-        _focus={{ boxShadow: 'outline' }}
-      >
-        File <ChevronDownIcon />
-      </MenuButton>
-      <MenuList>
-        <MenuItem>New File</MenuItem>
-        <MenuItem>New Window</MenuItem>
-        <MenuDivider />
-        <MenuItem>Open...</MenuItem>
-        <MenuItem>Save File</MenuItem>
-      </MenuList>
-    </Menu>
-  );
 }
 
 export default Category;

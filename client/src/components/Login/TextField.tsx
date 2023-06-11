@@ -3,7 +3,7 @@ import {
   FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/form-control";
-import { Textarea } from '@chakra-ui/react'
+import { Select, Textarea } from '@chakra-ui/react'
 import { Input } from "@chakra-ui/input";
 import { Field, useField } from "formik";
 import { AccountContext } from "../AccountContext";
@@ -31,3 +31,44 @@ export const MultiTextField = ({ label, ...props }: any) => {
   );
 }
 
+
+export const DropdownCategories = ({ label, setMenuOption, ...props }: any) => {
+  const [field, meta] = useField(props);
+  let categories = [
+    {
+      TextDisplay: "All",
+      propertyFlags: ["selected"]
+    },
+    {
+      TextDisplay: "Art",
+      propertyFlags: ["selected"]
+    },
+    {
+      TextDisplay: "Photography",
+      propertyFlags: ["selected"]
+    },
+    {
+      TextDisplay: "Music",
+      propertyFlags: ["selected"]
+    },
+    {
+      TextDisplay: "Sport",
+      propertyFlags: ["selected"]
+    }
+  ]
+  return (
+    <FormControl isInvalid={Boolean(meta.touched && meta.error)}>
+      <FormLabel>{label}</FormLabel>
+      <Select {...field} {...props}>
+        {categories.map((category, index) => {
+          return (
+            <option key={index} value={category.TextDisplay}>{category.TextDisplay}</option>
+          );
+          })
+        }
+      </Select>
+      <FormErrorMessage>{meta.error}</FormErrorMessage>
+    </FormControl>
+  );
+
+}
