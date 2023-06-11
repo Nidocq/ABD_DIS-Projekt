@@ -33,7 +33,7 @@ import {
   import * as Yup from "yup";
   import { ArrowBackIcon } from '@chakra-ui/icons';
   import { useNavigate, useParams} from 'react-router';
-  import { DropdownCategories } from '../Categories/Category';
+  import { DropdownCategories } from '../Login/TextField';
 import IItem from '../../interfaces/IItem';
   
 let _item: IItem = {
