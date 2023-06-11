@@ -26,6 +26,7 @@
     border-radius: 60px;
     transform: translate(0, -35px);
     border: solid white 1px;
+    box-shadow: 2px 2px 20px black;
     z-index: 1;
     position: absolute;
 }
