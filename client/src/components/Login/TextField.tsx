@@ -56,7 +56,7 @@ export const DropdownCategories = ({ label, setMenuOption, ...props }: any) => {
       propertyFlags: ["selected"]
     }
   ]
-  return (
+return (
     <FormControl isInvalid={Boolean(meta.touched && meta.error)}>
       <FormLabel>{label}</FormLabel>
       <Select {...field} {...props}>

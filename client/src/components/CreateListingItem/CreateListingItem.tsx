@@ -29,7 +29,7 @@ import {
 import './CreateListingItem.css'
 import { ChangeEvent, useState } from 'react';
 import { MultiTextField, TextField, DropdownCategories } from "../Login/TextField";
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from "yup";
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router';
@@ -45,16 +45,14 @@ const CreateListingItem = () => {
   };
   const navigate = useNavigate();
 
-  const format = (val: string) => `$` + val
-  const parse = (val: string) => val.replace(/^\$/, '')
   return (
     <Formik
       initialValues={{
         title: "",
         description: "",
-        img: [""],
-        price: 0,
-        categories: ""
+        img: pictureURL,
+        price: value,
+        categories: [""]
       }}
       validationSchema={Yup.object({
         title: Yup.string()
@@ -62,33 +60,35 @@ const CreateListingItem = () => {
           .min(3, "Title is too short")
           .max(28, "Title is too long"),
         description: Yup.string()
-          .required("Max characters for description is 300 characters")
           // Doens't require min since it can be NULL in the database
           .max(300, "Max characters for description is 300 characters"),
+        price: Yup.number()
+          .required("Price is required"),
         img: Yup.string()
           .required("Image url is required")
           .url("Image url must be a valid url"),
-        categories: Yup.string()
+        categories: Yup.array()
           .required("Category is required")
       })}
       onSubmit={(values, actions) => {
         debugger;
+        console.log("hegegheheq")
         const vals = { ...values };
         console.log(vals)
         actions.resetForm();
       }}
-/*         fetch("http://localhost:3001/auth/createlisting", {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(vals),
-        })
-      }} */
+    /*         fetch("http://localhost:3001/auth/createlisting", {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(vals),
+            })
+          }} */
     >
-      <div className="ListingWrapper">
         <VStack
+          as={Form}
           m="auto"
           justify="center"
           h="100vh"
@@ -109,10 +109,10 @@ const CreateListingItem = () => {
                     label="Title"
                   />
 
-                  <InputGroup size='md'>
+                   <InputGroup size='md'>
                     <NumberInput
-                      onChange={(valueString) => setValue(parse(valueString))}
-                      value={format(value)}
+                      onChange={(valueString) => setValue((valueString))}
+                      value={value}
                       min={0}
                       name='price'
                     >
@@ -126,7 +126,7 @@ const CreateListingItem = () => {
                   </InputGroup>
 
                   <TextField
-                    name="image"
+                    name="img"
                     value={pictureURL}
                     onChange={processPicture}
                     label="Paste Image URL here"
@@ -171,7 +171,6 @@ const CreateListingItem = () => {
             </Button>
           </ButtonGroup>
         </VStack>
-      </div>
     </Formik>
   )
 }

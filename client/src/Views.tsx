@@ -20,8 +20,8 @@ function Views(props: any) {
 
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" element={<HomeScreen />} />
-                    <Route path="/createlistingitem" element={<CreateListingItem />} />
                     <Route path="/updateuser" element={<UserPage />} />
+                    <Route path="/createlistingitem" element={<CreateListingItem />} />
                     <Route path="/item-preview/:itemId" element={<ItemPreview />} />
                 </Route>
             </Routes>
