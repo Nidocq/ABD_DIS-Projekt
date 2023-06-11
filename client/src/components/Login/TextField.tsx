@@ -32,7 +32,7 @@ export const MultiTextField = ({ label, ...props }: any) => {
 }
 
 
-export const DropdownCategories = ({ label, setMenuOption, ...props }: any) => {
+export const DropdownCategories = ({ label, ...props }: any) => {
   const [field, meta] = useField(props);
   let categories = [
     {

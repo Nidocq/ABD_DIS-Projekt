@@ -71,8 +71,6 @@ const CreateListingItem = () => {
           .required("Category is required")
       })}
       onSubmit={(values, actions) => {
-        debugger;
-        console.log("hegegheheq")
         const vals = { ...values };
         console.log(vals)
         actions.resetForm();
@@ -156,7 +154,6 @@ const CreateListingItem = () => {
                   name="category"
                   autoComplete="off"
                   label="Category"
-                  setMenuOption={(arg: any) => setMenuOption(arg)}
                 />
               </InputGroup>
             </CardFooter>
