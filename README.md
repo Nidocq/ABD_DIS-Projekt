@@ -5,6 +5,10 @@ Last Project from the DIS course at KU datalogi developed by Mahmood Seoud (tbc1
 Phillip Lundin [kxg220]
 Mahmood Mohammed Seoud [tbc115]
 
+# DISCLAIMER!
+- Don't post any real names, password, or other sensitive data as this website is vulnearable. \
+This of course only applies if this project is launched on a server.
+
 # Getting started
 Install the necessary libraries in order to launch the server.
 Starting the website 
@@ -70,9 +74,72 @@ Since this is a clone of DBA. You are of course able to list your items for sale
 #### Improvements for next time 
 In the development of our web app, we want to inform you that not all data tables have been fully implemented. This decision was made to prioritize the quality and functionality of the web app within the available resources and time constraints.
 
-# DISCLAIMER!
-- Don't post any real names, password, or other sensitive data as this website is vulnearable. \
-This of course only applies if this project is launched on a server.
+#### Database Tables Documentation
+
+In our web application, we have implemented a database using PostgreSQL to store and manage various data related to users, listings, transactions, and relationships. The following documentation provides an overview of each table and its corresponding columns, along with their data types and constraints.
+
+1. **Users Table**
+   - The Users table stores information about registered users.
+   - Columns:
+     - `username` (VARCHAR): The unique username of the user (primary key).
+     - `passhash` (VARCHAR): The password hash of the user (not null).
+     - `fullname` (VARCHAR): The full name of the user (not null).
+     - `location` (VARCHAR): The location of the user (unique, not null).
+     - `bio` (VARCHAR): The bio or description of the user.
+     - `picture` (VARCHAR): The URL of the user's profile picture.
+
+2. **Listings Table**
+   - The Listings table represents the available listings posted by users.
+   - Columns:
+     - `lid` (SERIAL): The unique identifier for each listing (primary key).
+     - `title` (VARCHAR): The title of the listing (not null).
+     - `description` (VARCHAR): The description of the listing.
+     - `price` (INTEGER): The price of the listing (not null).
+     - `categories` (VARCHAR): The categories associated with the listing.
+     - `img` (VARCHAR): The URL of the listing's image (not null).
+     - `sold` (BOOLEAN): Indicates whether the listing is sold (default is false).
+     - `username` (VARCHAR): The username of the user who created the listing (not null).
+     - `location` (VARCHAR): The location associated with the listing.
+   - Foreign Key Constraints:
+     - `username` references `Users(username)`.
+     - `location` references `Users(location)`.
+
+3. **Sells Table**
+   - The Sells table represents the transactions of selling listings.
+   - Columns:
+     - `username` (VARCHAR): The username of the user who sold the listing (not null).
+     - `lid` (SERIAL): The identifier of the sold listing (not null).
+     - `since` (DATE): The date when the transaction occurred (not null).
+   - Primary Key: `(username, lid)`
+   - Foreign Key Constraints:
+     - `username` references `Users(username)`.
+     - `lid` references `Listings(lid)`.
+
+4. **Uses_ABD Table**
+   - The Uses_ABD table stores information about the users who have used the application.
+   - Columns:
+     - `username` (VARCHAR): The username of the user who used the application (not null).
+     - `since` (DATE): The date when the user started using the application (not null).
+   - Primary Key: `username`
+   - Foreign Key Constraints:
+     - `username` references `Users(username)`.
+
+5. **Favors Table**
+   - The Favors table represents the listings favorited by users.
+   - Columns:
+     - `username` (VARCHAR): The username of the user who favorited the listing (not null).
+     - `lid` (SERIAL): The identifier of the favorited listing (not null).
+   - Primary Key: `(username, lid)`
+   - Foreign Key Constraints:
+     - `username` references `Users(username)`.
+     - `lid` references `Listings(lid)`.
+
+6. **Follower Table**
+   - The Follower table stores information about user followers.
+   - Columns:
+     - `followerid` (SERIAL): The unique identifier for each follower (primary key).
+     - `username1`
+
 # E/R Diagram
 ```mermaid
 ---
