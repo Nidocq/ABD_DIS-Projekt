@@ -12,12 +12,16 @@ import {
   EditableTextarea,
   EditablePreview,
   Img,
+  Card,
+  CardBody,
+  CardFooter,
+  HStack,
 
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
-import { TextField } from "../Login/TextField";
+import { MultiTextField, TextField } from "../Login/TextField";
 import * as Yup from "yup";
 
 const UserPage = () => {
@@ -70,45 +74,56 @@ const UserPage = () => {
       >
         <VStack
           as={Form}
-          w={{ base: "90%", md: "500px" }}
           m="auto"
           justify="center"
           h="100vh"
           spacing="1rem"
         >
           <Heading>Update user profile</Heading>
-          <Text as="p" color="red.500">
-            {error}
-          </Text>
+          <Card
+            width={{ base: "100%", md: "50%" }}
+          >
+            <CardBody>
+              <Text as="p" color="red.500">
+                {error}
+              </Text>
 
-          <TextField
-            type="text"
-            name="fullname"
-            placeholder="Change name"
-            label="Full name"
-            autoComplete="off"
-          />
+              <TextField
+                type="text"
+                name="fullname"
+                placeholder="Change name"
+                label="Full name"
+                autoComplete="off"
+              />
 
-          <TextField
-            type="text"
-            name="location"
-            label="Location"
-            placeholder="Change Location"
-            autoComplete="off"
-          />
+              <TextField
+                type="text"
+                name="location"
+                label="Location"
+                placeholder="Change Location"
+                autoComplete="off"
+              />
 
-          <TextField
-            type="text"
-            name="bio"
-            placeholder="Change Bio"
-            autoComplete="off"
-            label="Bio"
-          />
+              <MultiTextField
+                type="text"
+                name="bio"
+                placeholder="Change Bio"
+                autoComplete="off"
+                label="Bio"
+              />
 
-          <Img
-            src={user.picture}
-            alt="Profile picture"
-          />
+              <CardFooter
+                display="flex"
+                justifyContent="center"
+
+              >
+                <Img
+                  src={user.picture}
+                  alt="Profile picture"
+                />
+              </CardFooter>
+            </CardBody>
+          </Card>
           <ButtonGroup pt="1rem">
             <Button colorScheme="teal" type="submit">
               Make changes
