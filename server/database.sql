@@ -21,7 +21,7 @@ CREATE TABLE Listings (
     description VARCHAR(300),
     price INTEGER NOT NULL,
     categories VARCHAR(50),
-    img text[],
+    img VARCHAR NOT NULL,
     sold BOOLEAN DEFAULT false,
     username VARCHAR(28) NOT NULL,
     location  VARCHAR(150),
@@ -54,7 +54,6 @@ CREATE TABLE Favors (
     FOREIGN KEY (lid) REFERENCES Listings(lid)
 );
 
-/* TODO: LOOK AT SLIDES FOR TRIGGERS, SO THAT YOU CAN INCREASE UPON FOLLOW */
 CREATE TABLE Follower (
     followerid SERIAL,
     username1 VARCHAR(28),
@@ -89,7 +88,7 @@ INSERT INTO Listings VALUES (
     'This is toy train very beautiful', 
     20, 
     'games',
-    '{https://m.media-amazon.com/images/I/71PKOF8Gz3L._AC_UF894\,1000_QL80_.jpg?w=2000}', 
+    'https://m.media-amazon.com/images/I/71PKOF8Gz3L._AC_UF894\,1000_QL80_.jpg?w=2000', 
     false, 
     'username', 
     'Hvidovrevej'
@@ -100,7 +99,7 @@ INSERT INTO Listings VALUES (
     'Spaaaaace', 
     200000, 
     'service',
-    '{https://img.freepik.com/free-photo/astronaut-explores-outer-dark-space-generative-al_169016-28607.jpg?w=2000}',
+    'https://img.freepik.com/free-photo/astronaut-explores-outer-dark-space-generative-al_169016-28607.jpg?w=2000',
     false, 
     'username', 
     'Hvidovrevej'
@@ -112,7 +111,7 @@ INSERT INTO Listings VALUES (
     'Old western saloon in the old western. Up for sale because the sherif was shot. Get it for cheap',
     130000,
     'Building',
-    '{https://upload.wikimedia.org/wikipedia/commons/f/f8/Judge_Roy_Bean.jpg?2=2000}',
+    'https://upload.wikimedia.org/wikipedia/commons/f/f8/Judge_Roy_Bean.jpg?2=2000',
     false,
     'anotherUser',
     'Kokkedal'

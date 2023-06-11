@@ -2,7 +2,7 @@ export default interface IItem {
   lid: number,
   title: string,
   description: string,
-  img: string[],
+  img: string,
   categories: string,
   price: number,
   sold: boolean,

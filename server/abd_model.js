@@ -106,14 +106,14 @@ const createListItem = (body) => {
 const updateListItem = (body) => {
 return new Promise(function (resolve, reject) {
 
-  const { title, description, price, img, categories, username, location } = body;
+  const { title, description, price, img, categories, lid} = body;
   pool.query(`
     UPDATE Listings 
-    SET title=$2, description=$3, price=$4, img=$5, categories=$6, username=$1, location=$7 
-    WHERE username=$1 
+    SET title=$1, description=$2, price=$3, img=$4, categories=$5
+    WHERE lid=$6
     RETURNING lid
   `,
-    [username, title, description, price, img, categories, location], (error, results) => {
+    [title, description, price, img, categories, lid], (error, results) => {
       if (error) {
         reject(error)
       } else {
@@ -122,6 +122,10 @@ return new Promise(function (resolve, reject) {
     })
 })
 }
+
+// SELECT lid FROM USERS NATURAL JOIN LISTINGS
+//     WHERE (Users.username ='username' AND lid = '123')
+// ;
 
 module.exports = {
   registerUser,

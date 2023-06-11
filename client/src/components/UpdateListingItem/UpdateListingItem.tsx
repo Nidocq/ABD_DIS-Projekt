@@ -25,6 +25,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  list,
 } from '@chakra-ui/react';
 import './UpdateListingItem.css'
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
@@ -41,7 +42,7 @@ let _item: IItem = {
   lid: 0,
   categories: "",
   description: 'sdlfkjsdlfk',
-  img: [""],
+  img: "",
   location: '',
   price: 0,
   sold: false,
@@ -87,19 +88,20 @@ const UpdateListingItem = (): JSX.Element => {
   }, []);
 
   const {user} = useContext<any>(AccountContext)
-
+ console.log("Item.IMg", Item.img) 
   return (
     <>
         {itemLoaded ? (
         <Formik
       initialValues={{
-        title: Item.title,
+        title: Item.title, 
         description: Item.description,
         img: Item.img,
         price: Item.price,
         category: Item.categories,
         location: Item.location,
-        username: Item.username
+        username: Item.username,
+        lid: Number(itemId)
       }}
       validationSchema={Yup.object({
         title: Yup.string()
@@ -126,15 +128,7 @@ const UpdateListingItem = (): JSX.Element => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({
-                title: vals.title,
-                description: vals.description,
-                img: vals.img,
-                price: vals.price,
-                category: vals.category,
-                location: vals.location,
-                username: vals.username
-              }),
+              body: JSON.stringify({...vals}),
             }).catch(e => {
                 console.error(e);
                 return;
@@ -143,7 +137,8 @@ const UpdateListingItem = (): JSX.Element => {
                 if (!res || !res.ok || res.status >= 400) {
                   return;
                 }
-                return res.json();
+                 console.log(res)
+                 return res.json();
               })
               .then(data => {
                 if (!data) return;

@@ -17,7 +17,7 @@ function Item(props: IItem) {
         className="item-container">
 
             <img
-                src={props.img[0]}
+                src={props.img}
                 className="item-image-big"
             />
             <div className="info-container">

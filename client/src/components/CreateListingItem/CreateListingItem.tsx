@@ -61,7 +61,7 @@ const CreateListingItem = () => {
       initialValues={{
         title: "",
         description: "",
-        img: [""],
+        img: "",
         price: value,
         category: "",
         location: user.location,
@@ -95,7 +95,7 @@ const CreateListingItem = () => {
               body: JSON.stringify({
                 title: vals.title,
                 description: vals.description,
-                img: [vals.img],
+                img: vals.img,
                 price: vals.price,
                 category: vals.category,
                 location: vals.location,

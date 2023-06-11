@@ -37,7 +37,7 @@ let _item: IItem = {
   lid: 0,
   categories: "",
   description: '',
-  img: [""],
+  img: "",
   location: '',
   price: 0,
   sold: false,
@@ -110,7 +110,7 @@ const ItemPreview = () => {
       <Card >
         <CardBody>
           <Image
-            src={item.img[0]}
+            src={item.img}
             borderRadius='lg'
             maxHeight={"350px"}
           />

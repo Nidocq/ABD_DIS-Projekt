@@ -16,7 +16,7 @@ function ListingItems() {
         description: '',
         price: 0,
         categories: '',
-        img: [],
+        img: '',
         username: '',
         sellerPicture:'',
         sold: false,
