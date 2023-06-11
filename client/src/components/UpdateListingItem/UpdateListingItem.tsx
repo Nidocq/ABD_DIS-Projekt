@@ -26,7 +26,7 @@ import {
     FormErrorMessage,
     FormLabel,
   } from '@chakra-ui/react';
-  import './CreateListingItem.css'
+  import './UpdateListingItem.css'
   import { ChangeEvent, useEffect, useState } from 'react';
   import { MultiTextField, TextField } from "../Login/TextField";
   import { Formik } from 'formik';
@@ -39,7 +39,7 @@ import IItem from '../../interfaces/IItem';
 let _item: IItem = {
     lid: 0,
     categories: [""],
-    description: '',
+    description: 'sdlfkjsdlfk',
     img: [""],
     location: '',
     price: 0,
@@ -50,12 +50,13 @@ let _item: IItem = {
     likes: 0,
     isLiked: false
   }
-
-  const CreateListingItem = () => {
+ 
+  const UpdateListingItem = () : JSX.Element => {
     const [pictureURL, setPictureURL] = useState<string>("");
     const [value, setValue] = useState('')
     const [error, setError] = useState(null);
     const [Item, setItem] = useState<IItem>(_item);
+    const [itemLoaded, setItemLoaded] = useState(false);
     const { itemId } = useParams();
     const processPicture = (event: ChangeEvent<HTMLInputElement>) => {
       setPictureURL(event.target.value);
@@ -75,6 +76,7 @@ let _item: IItem = {
         if (!data) return;
         const item = data[0];
         setItem({ ...item });
+        setItemLoaded(true);
       })
       .catch(error => {
         console.error("Error fetching item:", error);
@@ -84,6 +86,8 @@ let _item: IItem = {
     const format = (val: string) => `$` + val
     const parse = (val: string) => val.replace(/^\$/, '')
     return (
+      <>
+      {itemLoaded && 
       <Formik
         initialValues={{
           title: Item.title ,
@@ -109,7 +113,7 @@ let _item: IItem = {
         onSubmit={(values, actions) => {
           const vals = { ...values };
           actions.resetForm();
-          fetch("http://localhost:3001/auth/login", {
+          fetch("http://localhost:3001/auth/updatelisting", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -117,8 +121,10 @@ let _item: IItem = {
             },
             body: JSON.stringify(vals),
           })
+        
         }}
       >
+        
         <div className="ListingWrapper">
           <VStack
             m="auto"
@@ -143,10 +149,10 @@ let _item: IItem = {
   
                     <InputGroup size='md'>
                       <NumberInput
+                        name='price'
                         onChange={(valueString) => setValue(parse(valueString))}
                         value={format(value)}
                         min={0}
-                        name='price'
                       >
                         <NumberInputField />
                         <NumberInputStepper>
@@ -191,18 +197,24 @@ let _item: IItem = {
   
               <Button
                 className="btnSaveListing"
-                onClick={() => alert("Saved data")}
+                onClick={() => {}}
                 type="submit">
                 <b>Update Listing</b>
               </Button>
-              <Button onClick={() => navigate("/")} leftIcon={<ArrowBackIcon />}>
+              <Button 
+                onClick={() => window.confirm("Your work will be lost if you go back")
+                  ? navigate("/item-preview/" + itemId) 
+                  : (() => {})} 
+                leftIcon={<ArrowBackIcon />}>
                 Back
               </Button>
             </ButtonGroup>
           </VStack>
         </div>
       </Formik>
+  }
+      </>
     )
   }
   
-  export default CreateListingItem
+  export default UpdateListingItem

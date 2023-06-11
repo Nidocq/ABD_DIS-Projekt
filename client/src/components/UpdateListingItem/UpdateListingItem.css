@@ -1,0 +1,14 @@
+.ListingWrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+
+    /* debugging-v */
+    /* border:solid 1px indigo; */
+}
+
+.listingImg {
+    width: 100px;
+    height: 100px;
+}
