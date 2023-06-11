@@ -1,7 +1,7 @@
 import './ItemPreview.css'
 import React, { useContext, useEffect, useState } from "react";
 import { AccountContext } from "../AccountContext";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   HStack, VStack,
   Box,
@@ -55,6 +55,7 @@ const ItemPreview = () => {
   const [itemOwner, setItemOwner] = useState<IUser>(_itemOwner);
   const [itemLoaded, setItemLoaded] = useState(false);
 
+  const navigate = useNavigate();
 
   const sameUserAndSeller : Boolean = user.username === itemOwner.username;
   // Fetch the item that was clicked on and save it to itemProps via useState
@@ -154,7 +155,13 @@ const ItemPreview = () => {
          <Button colorScheme='blue'>Contact seller</Button> 
          <Button colorScheme='green' > <AddIcon/> </Button> 
          {
-          sameUserAndSeller ? <Button colorScheme='blue' >Edit</Button> : <></>
+          sameUserAndSeller 
+            ? <Button 
+                colorScheme='blue' 
+                onClick={() => navigate("/updatelisting/" + itemId)}>
+              Edit
+              </Button> 
+            : <></>
           }
           </ButtonGroup>
         </CardFooter>
