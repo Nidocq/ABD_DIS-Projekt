@@ -15,36 +15,57 @@ import {
   Card,
   CardBody,
   Textarea,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
   CardFooter,
+  ButtonGroup,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
 } from '@chakra-ui/react';
 import './CreateListingItem.css'
 import { ChangeEvent, useState } from 'react';
-import IItem from '../../interfaces/IItem';
-import { TextField } from "../Login/TextField";
+import { MultiTextField, TextField } from "../Login/TextField";
 import { Formik } from 'formik';
 import * as Yup from "yup";
-
+import { ArrowBackIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router';
 
 const CreateListingItem = () => {
-  const [pictureURL, setPictureURL] = useState<string>("");
-  const processPicture = (event : ChangeEvent<HTMLInputElement>) => setPictureURL(event.target.value);
+  const [pictureURL, setPictureURL] = useState<string>("https://cdn-icons-png.flaticon.com/512/2651/2651001.png");
+  const [value, setValue] = useState('1.53')
+  const [error, setError] = useState(null);
+  const processPicture = (event: ChangeEvent<HTMLInputElement>) => {
+    setPictureURL(event.target.value);
+  };
+  const navigate = useNavigate();
 
+  const format = (val: string) => `$` + val
+  const parse = (val: string) => val.replace(/^\$/, '')
   return (
     <Formik
       initialValues={{
         title: "",
         desc: "",
-        imageURL: ""
+        imageURL:"" 
       }}
       validationSchema={Yup.object({
         title: Yup.string()
           .required("Title must have at least 3 characters")
           .min(3, "Title is too short")
           .max(28, "Title is too long"),
-        desc: Yup.string()
+        description: Yup.string()
           .required("Max characters for description is 300 characters")
           // Doens't require min since it can be NULL in the database
-          .max(300, "Max characters for description is 300 characters")
+          .max(300, "Max characters for description is 300 characters"),
+
+        imageurl: Yup.string()
+          .required("Image url is required")
+          .url("Image url must be a valid url")
+
       })}
       onSubmit={(values, actions) => {
         const vals = { ...values };
@@ -71,60 +92,72 @@ const CreateListingItem = () => {
             <CardBody>
               <HStack>
                 <VStack>
+                  <Text as="p" color="red.500">
+                    {error}
+                  </Text>
                   <TextField
                     name="title"
                     placeholder="Title"
                     autoComplete="off"
                     label="Title"
                   />
-                
+
                   <InputGroup size='md'>
-                    <Input
-                      placeholder='Price'
-                      htmlSize={8}
-                      width='auto'
-                    />
-                    <InputRightElement
-                      pointerEvents='none'
-                      color='gray.300'
-                      fontSize='1.2em'
-                      children='kr'
-                    />
+                    <NumberInput
+                      onChange={(valueString) => setValue(parse(valueString))}
+                      value={format(value)}
+                      min={0}
+                      name='price'
+                    >
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
 
                   </InputGroup>
                   <Input placeholder='Categories (Seperated with "," [commas])' />
+
                   <TextField 
                     name="imageURL"
-                    placeholder='https://cdn-icons-png.flaticon.com/512/2651/2651001.png'
+                    value={pictureURL}
                     onChange={processPicture}
                     label="Paste Image URL here"
                   />
 
+
                 </VStack>
                 <Image
                   src={pictureURL}
-                  w={{md: "350px"}}
+                  w={{ md: "350px" }}
                   borderRadius='lg'
                   maxHeight={"350px"}
                 />
               </HStack>
             </CardBody>
             <CardFooter>
-            <TextField
-                    name="desc"
-                    placeholder="Description"
-                    autoComplete="off"
-                    label="Description"
-                  />
+              <MultiTextField
+                name="desc"
+                placeholder="Description"
+                autoComplete="off"
+                label="Description"
+              />
             </CardFooter>
           </Card>
 
-          <Button
-            className="btnSaveListing"
-            onClick={() => alert("Saved data")}
-            type="submit">
-            <b>Create Listing</b>
-          </Button>
+          <ButtonGroup pt="1rem">
+
+            <Button
+              className="btnSaveListing"
+              onClick={() => alert("Saved data")}
+              type="submit">
+              <b>Create Listing</b>
+            </Button>
+            <Button onClick={() => navigate("/")} leftIcon={<ArrowBackIcon />}>
+              Back
+            </Button>
+          </ButtonGroup>
         </VStack>
       </div>
     </Formik>
