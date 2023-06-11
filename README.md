@@ -195,4 +195,4 @@ erDiagram
     Users |o--o| Users : Uses
     Users |o--|{ Listings : Sells
 ```
-Inspiration taken from this (mockup)[https://app.visily.ai/projects/773352af-63fe-49a1-bae3-238087f99ce9/boards/472105/presenter?play-mode=Prototype]
+Inspiration taken from this [mockup](https://app.visily.ai/projects/773352af-63fe-49a1-bae3-238087f99ce9/boards/472105/presenter?play-mode=Prototype)
